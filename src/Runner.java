@@ -51,6 +51,7 @@ public class Runner {
 
         System.out.println("------ Gameplay ------");
         System.out.println("Chosen number of players: " + playersNum);
+
         // print all the players with exeption if it's computer or human
 
 
@@ -85,7 +86,7 @@ public class Runner {
                 players[i].hand.addCardToHand(playerRadomCard);
             }
         }
-
+                                    /// coding done ///
         int action;
         boolean isThereALooser = false;
 
