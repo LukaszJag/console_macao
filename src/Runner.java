@@ -11,7 +11,9 @@ public class Runner {
 
         Scanner input = new Scanner(System.in);
 
+        System.out.println("---------------------------------------");
         System.out.println("Welcome in Macao Card Game!");
+        System.out.println("---------------------------------------");
         System.out.println("Set number of players (min 2 - max 4):");
 
         playersNum = input.nextInt();
