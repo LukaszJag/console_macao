@@ -18,17 +18,17 @@ public class Runner {
 
         playersNum = input.nextInt();
 
-        if(!(playersNum >= 2 && playersNum <= 4)){
+        if(playersNum < 2 || playersNum > 4){
             System.out.println("Wrong input (min 2 - max 4). Enter again:");
             playersNum = input.nextInt();
         }
 
-        System.out.println("How many humans players:");
+        System.out.println("Choose number of human players:");
 
         humans = input.nextInt();
 
-        if(!(humans < playersNum && playersNum > 1)){
-            System.out.println("Wrong input. Enter again:");
+        if(!(playersNum >= 2 && playersNum <= 4)){
+            System.out.println("Wrong input (min 2 - max 4). Enter again:");
             humans = input.nextInt();
         }
 
@@ -39,7 +39,6 @@ public class Runner {
             int counter = 0;
             for (int j = 0; j < humans; j++) {
                 Player hum = new Player(false);
-
                 players[i] = hum;
                 counter++;
             }
@@ -48,23 +47,35 @@ public class Runner {
                 players[i] = hum;
                 counter++;
             }
-
         }
+
+        System.out.println("------ Gameplay ------");
+        System.out.println("Chosen number of players: " + playersNum);
+        // print all the players with exeption if it's computer or human
+
 
         MainStack mainStack = new MainStack();
 
+        for (int i = 0; i < 52; i++) {
+            mainStack.stack.cards[i].introduceYourself();
+            //System.out.println(mainStack.stack.cards[i].introduceYourself());
+            // don't print whole deck
+        }
         int cycle = 1;
 
         Card gameCard = new Card(0,'z', true);
 
-        System.out.println("Start Cycle: " + cycle );
+        System.out.println("--- Cycle " + cycle + " ---" );
 
         while (gameCard.getIsAction()){
             gameCard = mainStack.stack.addCardFromMainStackTop(mainStack);
         }
 
         System.out.println("First Card:");
-        System.out.println(gameCard.prettyName());
+        System.out.println("-------------");
+
+        System.out.println(gameCard.introduceYourself());
+        System.out.println("-----------");
 
         // Fill each players' hand with 5 cards
         for (int i = 0; i < playersNum; i++) {
