@@ -40,11 +40,15 @@ public class Runner {
             for (int j = 0; j < humans; j++) {
                 Player hum = new Player(false);
                 players[i] = hum;
+                Deck hand = new Deck();
+                players[i].hand = hand;
                 counter++;
             }
             for (int j = counter; j < playersNum; j++) {
                 Player hum = new Player(true);
                 players[i] = hum;
+                Deck hand = new Deck();
+                players[i].hand = hand;
                 counter++;
             }
         }
@@ -66,7 +70,7 @@ public class Runner {
 
         Card gameCard = new Card(0,'z', true);
 
-        System.out.println("--- Cycle " + cycle + " ---" );
+        System.out.println("--- Cycle " + 1 + " ---" );
 
         while (gameCard.getIsAction()){
             gameCard = mainStack.stack.addCardFromMainStackTop(mainStack);
@@ -86,15 +90,55 @@ public class Runner {
                 players[i].hand.addCardToHand(playerRadomCard);
             }
         }
-                                    /// coding done ///
-        int action;
-        boolean isThereALooser = false;
 
+                                    /// coding done ///
+
+        int action = 0;
+        boolean isThereALooser = false;
+        int currentPlayer = 0;
+        cycle = 0 ;
+        UI gameWindow = new UI();
         // Game Loop
         while(!isThereALooser) {
 
-            action = input.nextInt();
+            cycle++;
+            while (currentPlayer < playersNum) {
 
+                int volumeOfAction = 0;
+
+                boolean correctDecision = false;
+                gameWindow.playerDecisionWindow();
+                while(!(correctDecision)) {
+                    action = input.nextInt();
+                    if (action == 1) {
+                        gameWindow.whichCardFromHand(players[currentPlayer].hand);
+
+                        int cardToPut = input.nextInt();
+                        while (cardToPut > players[currentPlayer].hand.getCardsInDeck()) {
+                            gameWindow.parseTextToLineConsoleText("Wrong input. Try again");
+                            cardToPut = input.nextInt();
+                        }
+                        Card card = new Card(0, 'z', false);
+                        card = players[currentPlayer].hand.putCardFromHand(players[currentPlayer].hand, cardToPut);
+                        players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer + 1]);
+
+                    }
+                    if (action == 2) {
+                        players[currentPlayer].addCardToHand(mainStack);
+                    }
+                    if (action == 3) {
+                        players[currentPlayer].showHand();
+                    }
+
+                    if (action == 4) {
+
+                    }
+
+                    if (action == 5) {
+
+                    }
+                }
+            }
         }
     }
 }
