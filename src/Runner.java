@@ -111,7 +111,9 @@ public class Runner {
                 while(!(correctDecision)) {
                     action = input.nextInt();
                     if (action == 1) {
-                        gameWindow.whichCardFromHand(players[currentPlayer].hand);
+
+                        gameWindow.parseTextToOneLineWindowText("Witch card ?");
+                        gameWindow.showHandInConsole(players[currentPlayer].hand);
 
                         int cardToPut = input.nextInt();
                         while (cardToPut > players[currentPlayer].hand.getCardsInDeck()) {

@@ -1,7 +1,5 @@
 package functionality;
 
-import javax.sound.sampled.Line;
-
 public class UI {
 
     public int maxTextinformationLength = 70;
@@ -10,6 +8,39 @@ public class UI {
             "5 - Get amount of card in another players hand"};
 
 
+    public void parseTextToOneLineWindowText(String text){
+        String line = "";
+        
+        int gapAfterText;
+
+        for (int i = 0; i < maxTextinformationLength; i++) {
+            System.out.print("-");
+        }
+
+        System.out.println();
+        line = line + "|";
+
+        for (int i = 0; i < gapBeforeText; i++) {
+            line = line + " ";
+        }
+
+        line = line + text;
+
+        gapAfterText = maxTextinformationLength - line.length() - 1;
+        for (int i = 0; i < gapAfterText; i++) {
+            line = line + " ";
+        }
+        line = line + "|";
+
+        System.out.println(line);
+
+        for (int i = 0; i < maxTextinformationLength; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+    
+    }
+    
     public String parseTextToLineConsoleText(String text){
         String line = "";
         int gapAfterText;
@@ -30,7 +61,7 @@ public class UI {
 
         return line;
     }
-    public void whichCardFromHand(Deck hand){
+    public void showHandInConsole(Deck hand){
         for (int i = 1; i < hand.getCardsInDeck()+1; i++) {
             System.out.println( i + " - " + hand.cards[i-1].introduceYourself());
         }
