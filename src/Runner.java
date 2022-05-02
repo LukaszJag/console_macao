@@ -102,34 +102,52 @@ public class Runner {
         while(!isThereALooser) {
 
             cycle++;
+            currentPlayer = 0;
             while (currentPlayer < playersNum) {
+
+                System.out.println("Player " + (currentPlayer+1) +  " Turn:");
 
                 int volumeOfAction = 0;
 
                 boolean correctDecision = false;
                 gameWindow.playerDecisionWindow();
+
                 while(!(correctDecision)) {
+
                     action = input.nextInt();
+
                     if (action == 1) {
 
                         gameWindow.parseTextToOneLineWindowText("Witch card ?");
                         gameWindow.showHandInConsole(players[currentPlayer].hand);
 
                         int cardToPut = input.nextInt();
+
                         while (cardToPut > players[currentPlayer].hand.getCardsInDeck()) {
                             gameWindow.parseTextToLineConsoleText("Wrong input. Try again");
                             cardToPut = input.nextInt();
                         }
+
                         Card card = new Card(0, 'z', false);
                         card = players[currentPlayer].hand.putCardFromHand(players[currentPlayer].hand, cardToPut);
-                        players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer + 1]);
+                        if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer + 1])){
+                            System.out.println("You put " + card.introduceYourself() + " on game stack");
+                            correctDecision = true;
+                        }else{
+                            System.out.println("This card can't be put on game stack");
+                            System.out.println("Choose again:");
+                        }
 
                     }
+
                     if (action == 2) {
                         players[currentPlayer].addCardToHand(mainStack);
+                        correctDecision = true;
                     }
+
                     if (action == 3) {
                         players[currentPlayer].showHand();
+                        gameWindow.playerDecisionWindow();;
                     }
 
                     if (action == 4) {
@@ -137,8 +155,11 @@ public class Runner {
                     }
 
                     if (action == 5) {
-
+                        for (int i = 0; i < playersNum; i++) {
+                            System.out.println("Player " + i + " have " + players[i].hand.getCardsInDeck() + " cards.");
+                        }
                     }
+                    currentPlayer++;
                 }
             }
         }
