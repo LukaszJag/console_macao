@@ -8,27 +8,25 @@ public class Runner {
 
         int playersNum;
         int humans;
-
+        UI gameWindow = new UI();
         Scanner input = new Scanner(System.in);
 
-        System.out.println("---------------------------------------");
-        System.out.println("Welcome in Macao Card Game!");
-        System.out.println("---------------------------------------");
-        System.out.println("Set number of players (min 2 - max 4):");
+        gameWindow.parseTextToOneLineWindowText("Welcome in Macao Card Game!");
+        gameWindow.parseTextToOneLineWindowText("Set number of players (min 2 - max 4):");
 
         playersNum = input.nextInt();
 
         if(playersNum < 2 || playersNum > 4){
-            System.out.println("Wrong input (min 2 - max 4). Enter again:");
+            gameWindow.parseTextToOneLineWindowText("Wrong input (min 2 - max 4). Enter again:");
             playersNum = input.nextInt();
         }
 
-        System.out.println("Choose number of human players:");
+        gameWindow.parseTextToOneLineWindowText("Choose number of human players:");
 
         humans = input.nextInt();
 
         if(!(playersNum >= 2 && playersNum <= 4)){
-            System.out.println("Wrong input (min 2 - max 4). Enter again:");
+            gameWindow.parseTextToOneLineWindowText("Wrong input (min 2 - max 4). Enter again:");
             humans = input.nextInt();
         }
 
@@ -53,34 +51,26 @@ public class Runner {
             }
         }
 
-        System.out.println("------ Gameplay ------");
-        System.out.println("Chosen number of players: " + playersNum);
+        gameWindow.parseTextToOneLineWindowText("Gameplay");
+        gameWindow.parseTextToOneLineWindowText("Chosen number of players: " + playersNum);
 
         // print all the players with exeption if it's computer or human
 
-
         MainStack mainStack = new MainStack();
 
-        for (int i = 0; i < 52; i++) {
-            mainStack.stack.cards[i].introduceYourself();
-            //System.out.println(mainStack.stack.cards[i].introduceYourself());
-            // don't print whole deck
-        }
         int cycle = 1;
 
         Card gameCard = new Card(0,'z', true);
 
-        System.out.println("--- Cycle " + 1 + " ---" );
+        gameWindow.parseTextToOneLineWindowText("Cycle " + 1);
 
         while (gameCard.getIsAction()){
             gameCard = mainStack.stack.addCardFromMainStackTop(mainStack);
         }
 
-        System.out.println("First Card:");
-        System.out.println("-------------");
+        gameWindow.parseTextToOneLineWindowText("First Card:");
 
-        System.out.println(gameCard.introduceYourself());
-        System.out.println("-----------");
+        gameWindow.cardUI(gameCard);
 
         // Fill each players' hand with 5 cards
         for (int i = 0; i < playersNum; i++) {
@@ -97,7 +87,7 @@ public class Runner {
         boolean isThereALooser = false;
         int currentPlayer = 0;
         cycle = 0 ;
-        UI gameWindow = new UI();
+
         // Game Loop
         while(!isThereALooser) {
 
@@ -105,7 +95,7 @@ public class Runner {
             currentPlayer = 0;
             while (currentPlayer < playersNum) {
 
-                System.out.println("Player " + (currentPlayer+1) +  " Turn:");
+                gameWindow.parseTextToOneLineWindowText("Player " + (currentPlayer+1) +  " Turn:");
 
                 int volumeOfAction = 0;
 
@@ -159,7 +149,16 @@ public class Runner {
                             System.out.println("Player " + i + " have " + players[i].hand.getCardsInDeck() + " cards.");
                         }
                     }
-                    currentPlayer++;
+
+                    if (action == 6){
+                        gameWindow.cardUI(gameCard);
+                        gameWindow.playerDecisionWindow();
+                    }
+
+                    if (correctDecision == true){
+                        currentPlayer++;
+                    }
+
                 }
             }
         }

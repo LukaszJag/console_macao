@@ -5,7 +5,7 @@ public class UI {
     public int maxTextinformationLength = 70;
     public int gapBeforeText = 6;
     public String[] actionToChoice = {"1 - Put card to game stack", "2 - Draw card from main stack", "3 - Have look at cards in your hand", "4 - Check function of action card",
-            "5 - Get amount of card in another players hand"};
+            "5 - Get amount of card in another players hand", "6 - Show card on top of game stack"};
 
 
     public void parseTextToOneLineWindowText(String text){
@@ -66,6 +66,51 @@ public class UI {
             System.out.println( i + " - " + hand.cards[i-1].introduceYourself());
         }
     }
+
+    public void cardUI(Card card){
+
+        String line = "| ";
+
+        if (card.getValue() < 11){
+            line = line + card.getValue();
+        }
+
+        if (card.getValue() == 11){
+            line = line + " Jack";
+        }
+
+        if(card.getValue() == 12){
+            line = line + " Queen";
+        }
+
+        if (card.getValue() == 13){
+            line = line + " King";
+        }
+
+        if (card.getValue() == 14){
+            line = line + " Ace";
+        }
+
+        if (card.getColor() == 's'){
+            line = line + " spades";
+        }
+
+        if (card.getColor() == 'h'){
+            line = line + " hearts";
+        }
+
+        if (card.getColor() == 'c'){
+            line = line + " clubs";
+        }
+
+        if (card.getColor() == 'd'){
+            line = line + " diamonds";
+        }
+        line = line +" |   ";
+        System.out.println(line);
+
+    }
+
     public void playerDecisionWindow() {
         UI mainUI = new UI();
         int beforeText;
