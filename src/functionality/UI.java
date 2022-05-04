@@ -8,7 +8,7 @@ public class UI {
             "5 - Get amount of card in another players hand", "6 - Show card on top of game stack"};
 
 
-    public void parseTextToOneLineWindowText(String text){
+    public void parseTextToOneLineWindowText(String text) {
         String line = "";
 
         int gapAfterText;
@@ -35,7 +35,8 @@ public class UI {
         System.out.println(line);
     }
 
-    public String closeTheWindow (String text){
+    public String closeTheWindow(String text) {
+
         for (int i = 0; i < maxTextinformationLength; i++) {
             System.out.print("-");
         }
@@ -44,7 +45,7 @@ public class UI {
     }
 
 
-    public String parseTextToLineConsoleText(String text){
+    public String parseTextToLineConsoleText(String text) {
         String line = "";
         int gapAfterText;
 
@@ -64,53 +65,54 @@ public class UI {
 
         return line;
     }
-    public void showHandInConsole(Deck hand){
-        for (int i = 1; i < hand.getCardsInDeck()+1; i++) {
-            System.out.println( i + " - " + hand.cards[i-1].introduceYourself());
+
+    public void showHandInConsole(Deck hand) {
+        for (int i = 1; i < hand.getCardsInDeck() + 1; i++) {
+            System.out.println(i + " - " + hand.cards[i - 1].introduceYourself());
         }
     }
 
-    public void cardUI(Card card){
+    public void cardUI(Card card) {
 
-        String line = "       | ";
+        String line = "|";
 
-        if (card.getValue() < 11){
+
+        if (card.getValue() < 11) {
             line = line + card.getValue();
         }
 
-        if (card.getValue() == 11){
+        if (card.getValue() == 11) {
             line = line + " Jack";
         }
 
-        if(card.getValue() == 12){
+        if (card.getValue() == 12) {
             line = line + " Queen";
         }
 
-        if (card.getValue() == 13){
+        if (card.getValue() == 13) {
             line = line + " King";
         }
 
-        if (card.getValue() == 14){
+        if (card.getValue() == 14) {
             line = line + " Ace";
         }
 
-        if (card.getColor() == 's'){
-            line = line + " ♠";
+        if (card.getColor() == 's') {
+
+            line = " ♠ " + line;
         }
 
-        if (card.getColor() == 'h'){
-            line = line + " ♥";
+        if (card.getColor() == 'h') {
+            line = " ♥ " + line;
         }
 
-        if (card.getColor() == 'c'){
-            line = line + " ♣";
+        if (card.getColor() == 'c') {
+            line = " ♣ " + line;
         }
 
-        if (card.getColor() == 'd'){
-            line = line + " ♦";
+        if (card.getColor() == 'd') {
+            line = " ♦ " + line;
         }
-        line = line +" |   ";
-        System.out.println(line);
 
     }
 
@@ -124,7 +126,7 @@ public class UI {
         }
         System.out.println();
 
-        int lengthOfQuestion = ("|" + "What do you want to do?" +  "|").length();
+        int lengthOfQuestion = ("|" + "What do you want to do?" + "|").length();
         beforeText = maxTextinformationLength - lengthOfQuestion - gapBeforeText;
 
         // print question before action to choice

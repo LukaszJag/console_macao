@@ -17,6 +17,25 @@ public class Deck {
         return cardsInDeck;
     }
 
+    public Card putCardFromHand(Deck hand,int index){
+
+        Card card = new Card(0,'z',false);
+        Card tmpCard = new Card(0,'z',false);
+        card = hand.cards[index];
+
+        if(index < hand.cardsInDeck){
+            for (int i = index; i < hand.cardsInDeck; i++) {
+                tmpCard = hand.cards[index + 1];
+                hand.cards[index] = tmpCard;
+            }
+        }
+
+        hand.cards[index] = new Card(0,'z', false);
+        hand.cardsInDeck--;
+
+        return card;
+    }
+
     int cardsInDeck = 0;
 
     public Deck() {

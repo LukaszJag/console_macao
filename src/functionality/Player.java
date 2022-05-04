@@ -51,17 +51,22 @@ public class Player {
                 }
             } else if (cardOnStack.getValue() == card.getValue()) {
                 return true;
-            }
-            if (card.getValue() == 12) {
-                return true;
+
             }
 
+        }
+
+        if (card.getValue() == 12) {
+            return true;
         }
         return false;
     }
 
-    // - Undone
-    public void addCardToHand() {
+
+    public void addCardToHand(MainStack mainStack) {
+        Card card = new Card(0,'z',false);
+        card = mainStack.stack.addCardFromMainStackTop(mainStack);
+        hand.addCardToHand(card);
 
     }
 
