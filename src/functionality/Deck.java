@@ -1,42 +1,14 @@
 package functionality;
+
 import java.util.Random;
 
 public class Deck {
 
     public Card[] cards = new Card[52];
-
+    int cardsInDeck = 0;
     public Card[] getCards() {
         return cards;
     }
-
-    public void setCards(Card[] cards) {
-        this.cards = cards;
-    }
-
-    public int getCardsInDeck() {
-        return cardsInDeck;
-    }
-
-    public Card putCardFromHand(Deck hand,int index){
-
-        Card card = new Card(0,'z',false);
-        Card tmpCard = new Card(0,'z',false);
-        card = hand.cards[index];
-
-        if(index < hand.cardsInDeck){
-            for (int i = index; i < hand.cardsInDeck; i++) {
-                tmpCard = hand.cards[index + 1];
-                hand.cards[index] = tmpCard;
-            }
-        }
-
-        hand.cards[index] = new Card(0,'z', false);
-        hand.cardsInDeck--;
-
-        return card;
-    }
-
-    int cardsInDeck = 0;
 
     public Deck() {
 
@@ -48,6 +20,34 @@ public class Deck {
 
     }
 
+    public void setCards(Card[] cards) {
+        this.cards = cards;
+    }
+
+    public int getCardsInDeck() {
+        return cardsInDeck;
+    }
+
+    public Card putCardFromHand(Deck hand, int index) {
+
+        Card card = new Card(0, 'z', false);
+        Card tmpCard = new Card(0, 'z', false);
+        card = hand.cards[index];
+
+        if (hand.getCardsInDeck() > 1) {
+
+            if (index < hand.cardsInDeck) {
+
+                tmpCard = hand.cards[hand.getCardsInDeck() - 1];
+                hand.cards[index] = tmpCard;
+            }
+        }
+        hand.cardsInDeck--;
+        return card;
+    }
+
+
+
     public void showCardsInDeck(Deck deck) {
 
         for (int i = 0; i < deck.cardsInDeck; i++) {
@@ -56,8 +56,27 @@ public class Deck {
     }
 
     public void addCardToHand(Card card) {
-       this.cards[this.cardsInDeck] = card;
-       this.cardsInDeck++;
+        this.cards[this.cardsInDeck] = card;
+        this.cardsInDeck++;
+    }
+
+    public void fillHandByCards(Deck playersDeck, MainStack mainStack, int howManyCards){
+
+        Card card = new Card(0, 'z',false);
+        Card emptyCard = new Card(0, 'z',false);
+        int cardsInDeck = mainStack.stack.getCardsInDeck();
+        int cardsInHand = playersDeck.getCardsInDeck();
+
+        for (int i = cardsInHand; i < howManyCards + cardsInHand; i++) {
+            card = mainStack.stack.cards[cardsInDeck - 1];
+            mainStack.stack.cards[cardsInDeck - 1] = emptyCard;
+            mainStack.stack.cardsInDeck--;
+            playersDeck.cards[playersDeck.cardsInDeck] = card;
+            playersDeck.cardsInDeck++;
+            cardsInDeck--;
+        }
+
+
     }
 
     public Deck shuffleMainDeck() {
