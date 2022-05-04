@@ -7,6 +7,39 @@ public class UI {
     public String[] actionToChoice = {"1 - Put card to game stack", "2 - Draw card from main stack", "3 - Have look at cards in your hand", "4 - Check function of action card",
             "5 - Get amount of card in another players hand", "6 - Show card on top of game stack"};
 
+    public void parseTextToManyLineWidnowText(String[] text) {
+        String line = "";
+        int gapAfterText;
+
+        for (int i = 0; i < maxTextinformationLength; i++) {
+            System.out.print("-");
+        }
+
+        System.out.println();
+
+        for (int i = 0; i < text.length; i++) {
+            line = line + "|";
+            for (int j = 0; j < gapBeforeText; j++) {
+                line = line + " ";
+            }
+
+            line = line + text[i];
+
+            gapAfterText = maxTextinformationLength - line.length() - 1;
+            for (int j = 0; j < gapAfterText; j++) {
+                line = line + " ";
+            }
+
+            line = line + "|";
+            System.out.println(line);
+            line = "";
+        }
+
+        for (int i = 0; i < maxTextinformationLength; i++) {
+            System.out.print("-");
+        }
+        System.out.println();
+    }
 
     public void parseTextToOneLineWindowText(String text) {
         String line = "";
@@ -35,13 +68,14 @@ public class UI {
         System.out.println(line);
     }
 
-    public String closeTheWindow(String text) {
+    public void closeTheWindow(String text2) {
 
+        String text = "";
         for (int i = 0; i < maxTextinformationLength; i++) {
-            System.out.print("-");
+            text = text + "-";
         }
-        System.out.println();
-        return text;
+        System.out.println(text);
+
     }
 
 
@@ -72,10 +106,10 @@ public class UI {
         }
     }
 
-    public void cardUI(Card card) {
+    public String cardUI(Card card) {
 
         String line = "|";
-
+        boolean prettySignWorks = false;
 
         if (card.getValue() < 11) {
             line = line + card.getValue();
@@ -97,23 +131,44 @@ public class UI {
             line = line + " Ace";
         }
 
-        if (card.getColor() == 's') {
+        if(prettySignWorks) {
+            if (card.getColor() == 's') {
 
-            line = " ♠ " + line;
+                line = " ♠ " + line;
+            }
+
+            if (card.getColor() == 'h') {
+                line = " ♥ " + line;
+            }
+
+            if (card.getColor() == 'c') {
+                line = " ♣ " + line;
+            }
+
+            if (card.getColor() == 'd') {
+                line = " ♦ " + line;
+            }
+        }else {
+            if (card.getColor() == 's') {
+
+                line = line + " s";
+            }
+
+            if (card.getColor() == 'h') {
+                line = line + " h";
+            }
+
+            if (card.getColor() == 'c') {
+                line = line + " c";
+            }
+
+            if (card.getColor() == 'd') {
+                line = line + " d";
+            }
         }
 
-        if (card.getColor() == 'h') {
-            line = " ♥ " + line;
-        }
-
-        if (card.getColor() == 'c') {
-            line = " ♣ " + line;
-        }
-
-        if (card.getColor() == 'd') {
-            line = " ♦ " + line;
-        }
-
+        line = line +"|";
+        return line;
     }
 
     public void playerDecisionWindow() {
