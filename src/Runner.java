@@ -1,5 +1,4 @@
 import functionality.*;
-import functionality.MainStack;
 
 import java.util.*;
 
@@ -63,25 +62,34 @@ public class Runner {
             }
             for (int j = counter; j < playersNum; j++) {
                 Player hum = new Player(true);
-                players[i] = hum;
+                players[j] = hum;
                 Deck hand = new Deck();
-                players[i].hand = hand;
+                players[j].hand = hand;
                 counter++;
             }
         }
 
         gameWindow.parseTextToOneLineWindowText("Gameplay");
-        gameWindow.parseTextToOneLineWindowText("Chosen number of players: " + playersNum);
 
-        // print all the players with exeption if it's computer or human
-        for (int i = 1; i <= playersNum; i++) {
-            if (i <= humans) {
-                System.out.println("|      Player " + i + ": Human                                               |");
+
+        String[] playertable = new String[playersNum];
+        playertable[0] = "Chosen number of players:" + playersNum;
+        int counterForPlayers = 1;
+        for (int i = 0; i < playersNum; i++) {
+
+
+            if (players[i].isComputer) {
+                playertable[i] = "Player " + counterForPlayers + ": " + " Computer";
+                counterForPlayers++;
+
             } else {
-                System.out.println("|      Player " + i + ": Computer                                            |");
+                playertable[i] = "Player " + counterForPlayers + ": " + " Human";
+                counterForPlayers++;
             }
+
         }
-        gameWindow.closeTheWindow("");
+        gameWindow.parseTextToManyLineWidnowText(playertable);
+
 
         MainStack mainStack = new MainStack();
 
@@ -89,37 +97,25 @@ public class Runner {
 
         Card gameCard = new Card(0, 'z', true);
 
-        gameWindow.parseTextToOneLineWindowText("Cycle " + 1);
-
-        gameWindow.parseTextToOneLineWindowText("Cycle " + 1);
+        gameWindow.parseTextToManyLineWidnowText(new String[]{"Gameplay", "Chosen number of players: " + playersNum, "Cycle 1", "First Card:"});
 
 
         while (gameCard.getIsAction()) {
             gameCard = mainStack.stack.addCardFromMainStackTop(mainStack);
         }
 
-        gameWindow.parseTextToOneLineWindowText("First Card:");
-
-        gameWindow.cardUI(gameCard);
+        System.out.println((gameWindow.cardUI(gameCard)));
 
         // Fill each players' hand with 5 cards
         for (int i = 0; i < playersNum; i++) {
-            for (int j = 0; j < 5; j++) {
-                Card playerRadomCard = new Card();
-                playerRadomCard = mainStack.stack.addCardFromMainStackTop(mainStack);
-                players[i].hand.addCardToHand(playerRadomCard);
-            }
+
+            players[i].hand.fillHandByCards(players[i].hand, mainStack, 5);
+
         }
-
-        /// coding done ///
-
 
         int action = 0;
         boolean isThereALooser = false;
         int currentPlayer = 0;
-
-        cycle = 0;
-
         cycle = 0;
 
 
@@ -133,8 +129,6 @@ public class Runner {
 
                 gameWindow.parseTextToOneLineWindowText("Player " + (currentPlayer + 1) + " Turn:");
 
-                gameWindow.parseTextToOneLineWindowText("Player " + (currentPlayer + 1) + " Turn:");
-
 
                 int volumeOfAction = 0;
 
@@ -145,16 +139,13 @@ public class Runner {
 
                     while (!(correctDecision)) {
 
-
                         action = input.nextInt();
 
                         if (action == 1) {
 
 
                             gameWindow.parseTextToOneLineWindowText("Which card ?");
-
-                            gameWindow.parseTextToOneLineWindowText("Witch card ?");
-
+                            gameWindow.closeTheWindow("");
                             gameWindow.showHandInConsole(players[currentPlayer].hand);
 
                             int cardToPut = input.nextInt();
@@ -165,7 +156,7 @@ public class Runner {
                             }
 
                             Card card = new Card(0, 'z', false);
-                            card = players[currentPlayer].hand.putCardFromHand(players[currentPlayer].hand, cardToPut);
+                            card = players[currentPlayer].hand.putCardFromHand(players[currentPlayer].hand, cardToPut - 1);
 
                             if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer + 1])) {
                                 System.out.println("You put " + card.introduceYourself() + " on game stack");
@@ -176,7 +167,7 @@ public class Runner {
                                     correctDecision = true;
                                 } else {
                                     System.out.println("This card can't be put on game stack");
-                                    System.out.println("Choose again:");
+                                    gameWindow.playerDecisionWindow();
                                 }
 
                             }
@@ -299,6 +290,21 @@ public class Runner {
                     }
                 }
             }
+        }
+
+        char anwser;
+        gameWindow.parseTextToOneLineWindowText("Player " + currentPlayer + " is a winner");
+        gameWindow.parseTextToOneLineWindowText("Do you like macao console ?(y/n)");
+        anwser = input.next().charAt(0);
+
+        if(anwser == 'y')
+        {
+            gameWindow.parseTextToOneLineWindowText("Glad to hear that");
+        }else{
+            String whyNo;
+            gameWindow.parseTextToOneLineWindowText("Please, tell why no");
+            whyNo = input.next();
+            gameWindow.parseTextToOneLineWindowText("Thansk for your opinion");
         }
     }
 }
