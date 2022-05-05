@@ -279,7 +279,7 @@ public class Runner {
                         }
 
                     }
-
+                }
                     while (!(correctDecision)) {
 
                         if (currentPlayer == witchPlayerIsWaiting) {
@@ -476,7 +476,7 @@ public class Runner {
                         }
                     }
 
-                }
+                
             }
 
 
