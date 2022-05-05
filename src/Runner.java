@@ -118,21 +118,50 @@ public class Runner {
         int currentPlayer = 0;
         cycle = 0;
 
+        boolean isActionCardActive = false;
+        int volumeOfAction = 0;
+        int typeOfAction = 0;
+        char demandColor = 'z';
+        int demandValue = 0;
+
 
         // Game Loop
         while (!isThereALooser) {
 
             cycle++;
             currentPlayer = 0;
-            while (currentPlayer < playersNum) {
 
+            while (currentPlayer < playersNum) {
 
                 gameWindow.parseTextToOneLineWindowText("Player " + (currentPlayer + 1) + " Turn:");
 
-
-                int volumeOfAction = 0;
-
                 boolean correctDecision = false;
+
+                //If action card is active current player must handle with action:
+                if (isActionCardActive) {
+
+                    if (typeOfAction == 1) {
+
+                        gameWindow.parseTextToManyLineWidnowText(new String[]{"You must wait " + volumeOfAction + " turn/s.", "Unless you put card with value 4"});
+
+                    }
+
+                    if (typeOfAction == 2) {
+                        gameWindow.parseTextToManyLineWidnowText(new String[]{"You must draw " + volumeOfAction + " card/s.",
+                                "Unless you put card with value", "2, 3 , King s, King h"});
+                    }
+
+                    if (typeOfAction == 3) {
+                        gameWindow.parseTextToManyLineWidnowText(new String[]{"Demand color is ", "" + demandColor, "You must put card with " + demandColor + " color.",
+                                "or you will draw a card"});
+                    }
+                    if (typeOfAction == 4) {
+                        gameWindow.parseTextToManyLineWidnowText(new String[]{"Demand value is ", "" + demandColor, "You must put card with " + demandValue + " color.",
+                                "or you will draw a card"});
+                    }
+
+                }
+
                 gameWindow.playerDecisionWindow();
 
                 while (!(correctDecision)) {
@@ -142,7 +171,6 @@ public class Runner {
                         action = input.nextInt();
 
                         if (action == 1) {
-
 
                             gameWindow.parseTextToOneLineWindowText("Which card ?");
                             gameWindow.closeTheWindow("");
@@ -160,14 +188,48 @@ public class Runner {
 
                             if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer + 1])) {
                                 System.out.println("You put " + card.introduceYourself() + " on game stack");
-                                correctDecision = true;
-                            } else {
-                                if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer + 1])) {
-                                    System.out.println("You put " + card.introduceYourself() + " on game stack");
+
+                                gameCard = card;
+
+                                if (gameCard.isActionCard) {
+
+                                    isActionCardActive = true;
+
+                                    if (gameCard.value == 4){
+                                        typeOfAction = 1;
+                                        volumeOfAction = 1;
+                                    }
+                                    if (gameCard.value == 3 || gameCard.value == 2 || (gameCard.value == 13 && (gameCard.color == 'h' || gameCard.color == 's'))) {
+
+                                        typeOfAction = 2;
+
+                                        if (gameCard.value == 13) {
+                                            volumeOfAction = 5;
+                                        } else {
+                                            volumeOfAction = gameCard.getValue();
+                                        }
+
+                                    }
+
+                                    if (gameCard.getValue() == 11){
+                                        gameWindow.parseTextToManyLineWidnowText(new String[]{"You can demand value of cards", "It must be no action card","You also have to put this card"});
+                                        typeOfAction = 3;
+                                        demandValue = input.nextInt();
+                                        // Puting card write latter
+                                    }
+                                    if (gameCard.value == 14){
+                                        gameWindow.parseTextToManyLineWidnowText(new String[]{"You can demand color of cards","Chose from s, d, c or h. "});
+                                        typeOfAction = 4;
+                                        demandValue = input.next().charAt(0);
+
+                                    }
+
                                     correctDecision = true;
                                 } else {
+
                                     System.out.println("This card can't be put on game stack");
                                     gameWindow.playerDecisionWindow();
+
                                 }
 
                             }
@@ -295,12 +357,13 @@ public class Runner {
         char anwser;
         gameWindow.parseTextToOneLineWindowText("Player " + currentPlayer + " is a winner");
         gameWindow.parseTextToOneLineWindowText("Do you like macao console ?(y/n)");
-        anwser = input.next().charAt(0);
+        anwser = input.next().
 
-        if(anwser == 'y')
-        {
+                charAt(0);
+
+        if (anwser == 'y') {
             gameWindow.parseTextToOneLineWindowText("Glad to hear that");
-        }else{
+        } else {
             String whyNo;
             gameWindow.parseTextToOneLineWindowText("Please, tell why no");
             whyNo = input.next();
