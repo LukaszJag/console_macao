@@ -410,7 +410,7 @@ public class Runner {
                                     gameWindow.closeTheWindow("");
                                     System.out.println(answerCard);
                                     System.out.println("This card is a functional card.");
-                                    System.out.println("If you put this card, it will force the next player to miss their next turn.");
+                                    System.out.println("If you put this card, it will force the next player to skip their next turn.");
                                     System.out.println("Cards add up to each other.");
                                     gameWindow.closeTheWindow("");
                                 }
@@ -419,8 +419,8 @@ public class Runner {
                                     gameWindow.closeTheWindow("");
                                     System.out.println(answerCard);
                                     System.out.println("This card is a functional card.");
-                                    System.out.println("If you put this card you could claim any value of a non-functional card.");
-                                    System.out.println("Each player (including you) have to put claimed value.");
+                                    System.out.println("If you put this card you could demand any value of a non-functional card.");
+                                    System.out.println("Each player (including you) have to put demanded value.");
                                     gameWindow.closeTheWindow("");
                                 }
 
@@ -443,8 +443,8 @@ public class Runner {
                                     gameWindow.closeTheWindow("");
                                     System.out.println(answerCard);
                                     System.out.println("This card is a functional card.");
-                                    System.out.println("If you put this card you could claim new color.");
-                                    System.out.println("Next player has to put his card in claimed color.");
+                                    System.out.println("If you put this card you could demand new color.");
+                                    System.out.println("Next player has to put his card in demanded color.");
                                     gameWindow.closeTheWindow("");
                                 }
 
