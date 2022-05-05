@@ -346,7 +346,7 @@ public class Runner {
                                         gameWindow.parseTextToManyLineWidnowText(new String[]{"You can demand value of cards", "It must be no action card", "You also have to put this card"});
                                         typeOfAction = 3;
                                         demandValue = input.nextInt();
-                                        // Puting card write latter
+                                        // Putting card write latter
                                     }
 
                                     if (gameCard.value == 14) {
@@ -487,12 +487,12 @@ public class Runner {
             anwser = input.next().charAt(0);
 
             if (anwser == 'y') {
-                gameWindow.parseTextToOneLineWindowText("Glad to hear that");
+                gameWindow.parseTextToOneLineWindowText("Glad to hear that!");
             } else {
                 String whyNo;
-                gameWindow.parseTextToOneLineWindowText("Please, tell why no?");
+                gameWindow.parseTextToOneLineWindowText("Please, tell us why not?");
                 whyNo = input.next();
-                gameWindow.parseTextToOneLineWindowText("Thansk for your opinion");
+                gameWindow.parseTextToOneLineWindowText("Thank you for your opinion!");
             }
         }
     }
