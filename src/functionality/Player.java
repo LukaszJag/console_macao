@@ -62,6 +62,15 @@ public class Player {
         return false;
     }
 
+    public void giveAwayCard(int indexOfCard, Player player){
+        Card tmpCard = new Card(0, 'z', false);
+        player.hand.cards[indexOfCard] = tmpCard;
+        tmpCard = player.hand.cards[player.hand.getCardsInDeck() -1];
+        player.hand.cards[indexOfCard] = tmpCard;
+        player.hand.cards[indexOfCard] = tmpCard;
+        player.hand.cardsInDeck--;
+
+    }
 
     public void addCardToHand(MainStack mainStack, Deck hand) {
         Card card = new Card(0,'z',false);
