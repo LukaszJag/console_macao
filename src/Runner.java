@@ -375,7 +375,7 @@ public class Runner {
 
                         if (action == 3) {
                             players[currentPlayer].showHand();
-                            gameWindow.playerDecisionWindow();
+
                         }
 
                         if (action == 4) {
@@ -451,10 +451,6 @@ public class Runner {
                                 gameWindow.closeTheWindow("");
                             }
 
-                            gameWindow.playerDecisionWindow();
-
-                            gameWindow.playerDecisionWindow();
-                            ;
                         }
 
                         if (action == 5) {
@@ -462,7 +458,7 @@ public class Runner {
                                 System.out.println("Player " + (i + 1) + " have " + players[i].hand.getCardsInDeck() + " cards.");
                             }
 
-                            gameWindow.playerDecisionWindow();
+                           
                         }
 
 
