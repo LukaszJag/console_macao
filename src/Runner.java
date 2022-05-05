@@ -310,7 +310,7 @@ public class Runner {
                             Card card = new Card(0, 'z', false);
                             cardToPut = players[currentPlayer].hand.putCardFromHand(players[currentPlayer].hand, indexOfCardToPut - 1);
 
-                            if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer + 1])) {
+                            if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer])) {
                                 System.out.println("You put " + card.introduceYourself() + " on game stack");
 
                                 gameCard = card;
