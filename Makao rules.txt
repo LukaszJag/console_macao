@@ -12,7 +12,7 @@ One random (non-functional*) card has to be placed in a way that is visible to a
 
 Each player, starting from the first and going clockwise, has to compare cards on their hand to the card on the table. If player has card that corresponds with color or value, he can (but doesn't have to) play this card. If played card is **functional, player has to put defending card or act accordingly to the card's function.
 
-If player doesn't have any corresponding card, he has to take one card from main deck. If drawn card corresponds with the card on the table, player can (but doesn't have to) play this card right away. This rule doesn't work with action card value 4.
+If player doesn't have any corresponding card, he has to take one card from main deck. If drawn card is corresponding, player cannot play this card after draw.
 
 If player has more than one card in the same value, they can place them all, but first card has to correspond with the card on the table. This rule does't work with cards in the same color but different values.
 
