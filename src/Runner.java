@@ -313,7 +313,7 @@ public class Runner {
 
                             if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer])) {
                                 isCardRight = true;
-                                players[currentPlayer].giveAwayCard(indexOfCardToPut -1, players[currentPlayer]);
+                                players[currentPlayer].giveAwayCard(indexOfCardToPut - 1, players[currentPlayer]);
                             }
 
                             if (isCardRight) {
@@ -359,7 +359,7 @@ public class Runner {
 
                                 }
                                 correctDecision = true;
-                            }else {
+                            } else {
                                 gameWindow.parseTextToManyLineWidnowText(new String[]{"Wrong card", "Chose your actio again"});
                             }
                         }
@@ -480,7 +480,7 @@ public class Runner {
 
 
             }
-
+        }
 
             gameWindow.parseTextToOneLineWindowText("Player " + currentPlayer + " is a winner");
             gameWindow.parseTextToOneLineWindowText("Do you like macao console ?(y/n)");
@@ -494,6 +494,6 @@ public class Runner {
                 whyNo = input.next();
                 gameWindow.parseTextToOneLineWindowText("Thansk for your opinion");
             }
-        }
+
     }
 }
