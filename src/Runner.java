@@ -242,7 +242,7 @@ public class Runner {
                                 correctDecision = true;
                                 isActionCardActive = true;
                             } else {
-                                gameWindow.parseTextToLineConsoleText("Wrong card, you are draw a card.");
+                                gameWindow.parseTextToLineConsoleText("Wrong card, you are drawing a card.");
                                 players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
                                 cycleOfDemandColor--;
                                 if (cycleOfDemandColor <= 0) {
@@ -360,7 +360,7 @@ public class Runner {
                                 }
                                 correctDecision = true;
                             } else {
-                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Wrong card", "Chose your actio again"});
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Wrong card", "Choose your action again"});
                             }
                         }
 
