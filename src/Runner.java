@@ -367,8 +367,8 @@ public class Runner {
                         if (action == 2) {
                             players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
                             // print to the player added card
-                            gameWindow.parseTextToOneLineWindowText("Added card: ");
-                            gameWindow.closeTheWindow("");
+                            gameWindow.parseTextToManyLineWidnowText(new String[]{"Card have been added"});
+
 
                             correctDecision = true;
                         }
@@ -458,7 +458,7 @@ public class Runner {
                                 System.out.println("Player " + (i + 1) + " have " + players[i].hand.getCardsInDeck() + " cards.");
                             }
 
-                           
+
                         }
 
 
