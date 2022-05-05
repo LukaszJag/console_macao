@@ -252,6 +252,7 @@ public class Runner {
                         }
 
                     }
+
                     if (typeOfAction == 4) {
                         gameWindow.parseTextToManyLineWidnowText(new String[]{"Demand value is ", "" + demandColor, "You must put card with " + demandValue + " color.",
                                 "or you will draw a card"});
@@ -280,203 +281,204 @@ public class Runner {
 
                     }
                 }
-                    while (!(correctDecision)) {
 
-                        if (currentPlayer == witchPlayerIsWaiting) {
-                            howManyCycleOfWaiting--;
-                            gameWindow.parseTextToManyLineWidnowText(new String[]{"Player " + currentPlayer + " is waiting.", "Turn of waiting left: " + howManyCycleOfWaiting});
-                            correctDecision = true;
+                while (!(correctDecision)) {
 
-                        } else {
-                            gameWindow.playerDecisionWindow();
-                            action = input.nextInt();
+                    if ((currentPlayer == witchPlayerIsWaiting) && typeOfAction == 1) {
+                        howManyCycleOfWaiting--;
+                        gameWindow.parseTextToManyLineWidnowText(new String[]{"Player " + currentPlayer + " is waiting.", "Turn of waiting left: " + howManyCycleOfWaiting});
+                        correctDecision = true;
 
-                            if (action == 1) {
+                    } else {
+                        gameWindow.playerDecisionWindow();
+                        action = input.nextInt();
 
-                                gameWindow.parseTextToOneLineWindowText("Which card ?");
-                                gameWindow.closeTheWindow("");
-                                gameWindow.showHandInConsole(players[currentPlayer].hand);
+                        if (action == 1) {
 
-                                int indexOfCardToPut = input.nextInt();
+                            gameWindow.parseTextToOneLineWindowText("Which card ?");
+                            gameWindow.closeTheWindow("");
+                            gameWindow.showHandInConsole(players[currentPlayer].hand);
 
-                                while (indexOfCardToPut > players[currentPlayer].hand.getCardsInDeck()) {
-                                    gameWindow.parseTextToLineConsoleText("Wrong index. Try again");
-                                    indexOfCardToPut = input.nextInt();
-                                }
+                            int indexOfCardToPut = input.nextInt();
 
-                                Card cardToPut = new Card(0, 'z', false);
-                                Card card = new Card(0, 'z', false);
-                                cardToPut = players[currentPlayer].hand.putCardFromHand(players[currentPlayer].hand, indexOfCardToPut - 1);
+                            while (indexOfCardToPut > players[currentPlayer].hand.getCardsInDeck()) {
+                                gameWindow.parseTextToLineConsoleText("Wrong index. Try again");
+                                indexOfCardToPut = input.nextInt();
+                            }
 
-                                if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer + 1])) {
-                                    System.out.println("You put " + card.introduceYourself() + " on game stack");
+                            Card cardToPut = new Card(0, 'z', false);
+                            Card card = new Card(0, 'z', false);
+                            cardToPut = players[currentPlayer].hand.putCardFromHand(players[currentPlayer].hand, indexOfCardToPut - 1);
 
-                                    gameCard = card;
+                            if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer + 1])) {
+                                System.out.println("You put " + card.introduceYourself() + " on game stack");
 
-                                    if (gameCard.isActionCard) {
+                                gameCard = card;
 
-                                        isActionCardActive = true;
+                                if (gameCard.isActionCard) {
 
-                                        if (gameCard.value == 4) {
-                                            typeOfAction = 1;
-                                            volumeOfAction = 1;
-                                        }
+                                    isActionCardActive = true;
 
-                                        if (gameCard.value == 3 || gameCard.value == 2 || (gameCard.value == 13 && (gameCard.color == 'h' || gameCard.color == 's'))) {
-
-                                            typeOfAction = 2;
-
-                                            if (gameCard.value == 13) {
-                                                volumeOfAction = 5;
-                                            } else {
-                                                volumeOfAction = gameCard.getValue();
-                                            }
-
-                                        }
-
-                                        if (gameCard.getValue() == 11) {
-                                            gameWindow.parseTextToManyLineWidnowText(new String[]{"You can demand value of cards", "It must be no action card", "You also have to put this card"});
-                                            typeOfAction = 3;
-                                            demandValue = input.nextInt();
-                                            // Puting card write latter
-                                        }
-
-                                        if (gameCard.value == 14) {
-                                            gameWindow.parseTextToManyLineWidnowText(new String[]{"You can demand color of cards", "Chose from s, d, c or h. "});
-                                            typeOfAction = 4;
-                                            demandValue = input.next().charAt(0);
-
-                                        }
-
-                                        correctDecision = true;
+                                    if (gameCard.value == 4) {
+                                        typeOfAction = 1;
+                                        volumeOfAction = 1;
                                     }
 
+                                    if (gameCard.value == 3 || gameCard.value == 2 || (gameCard.value == 13 && (gameCard.color == 'h' || gameCard.color == 's'))) {
 
-                                } else {
+                                        typeOfAction = 2;
 
-                                    System.out.println("This card can't be put on game stack");
-                                    players[currentPlayer].hand.addCardToHand(cardToPut, players[currentPlayer].hand);
-                                    System.out.println(cardToPut.introduceYourself());
-                                    gameWindow.playerDecisionWindow();
+                                        if (gameCard.value == 13) {
+                                            volumeOfAction = 5;
+                                        } else {
+                                            volumeOfAction = gameCard.getValue();
+                                        }
+
+                                    }
+
+                                    if (gameCard.getValue() == 11) {
+                                        gameWindow.parseTextToManyLineWidnowText(new String[]{"You can demand value of cards", "It must be no action card", "You also have to put this card"});
+                                        typeOfAction = 3;
+                                        demandValue = input.nextInt();
+                                        // Puting card write latter
+                                    }
+
+                                    if (gameCard.value == 14) {
+                                        gameWindow.parseTextToManyLineWidnowText(new String[]{"You can demand color of cards", "Chose from s, d, c or h. "});
+                                        typeOfAction = 4;
+                                        demandValue = input.next().charAt(0);
+
+                                    }
+
+                                    correctDecision = true;
                                 }
-                            }
 
-                            if (action == 2) {
-                                players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
-                                // print to the player added card
-                                gameWindow.parseTextToOneLineWindowText("Added card: ");
-                                gameWindow.closeTheWindow("");
 
-                                correctDecision = true;
-                            }
+                            } else {
 
-                            if (action == 3) {
-                                players[currentPlayer].showHand();
+                                System.out.println("This card can't be put on game stack");
+                                players[currentPlayer].hand.addCardToHand(cardToPut, players[currentPlayer].hand);
+                                System.out.println(cardToPut.introduceYourself());
                                 gameWindow.playerDecisionWindow();
-                            }
-
-                            if (action == 4) {
-                                gameWindow.parseTextToOneLineWindowText("which card do you want to check?");
-                                System.out.println("|      Choose card number form 2-14                                  |");
-                                gameWindow.closeTheWindow("");
-
-                                int answer = input.nextInt();
-                                String answerCard = "| " + answer + " ♠/♣/♥/♦ |";
-
-                                if (!(answer >= 2 && answer <= 14)) {
-                                    gameWindow.closeTheWindow("");
-                                    System.out.println("Wrong input! Choose card number from 2-14 and enter again:");
-                                    gameWindow.closeTheWindow("");
-                                    answer = input.nextInt();
-                                }
-
-                                if (answer <= 10 && answer > 4 || answer == 12) {
-                                    gameWindow.closeTheWindow("");
-                                    System.out.println(answerCard);
-                                    System.out.println("This card is a non-functional card.");
-                                    gameWindow.closeTheWindow("");
-                                }
-
-                                if (answer == 2 || answer == 3) {
-                                    gameWindow.closeTheWindow("");
-                                    System.out.println(answerCard);
-                                    System.out.println("This card is a functional card.");
-                                    System.out.println("If you put this card, it will add " + answer + " extra cards to the next player.");
-                                    System.out.println("Cards add up to each other and could be used on another attacking card.");
-                                    gameWindow.closeTheWindow("");
-                                }
-
-                                if (answer == 4) {
-                                    gameWindow.closeTheWindow("");
-                                    System.out.println(answerCard);
-                                    System.out.println("This card is a functional card.");
-                                    System.out.println("If you put this card, it will force the next player to skip their next turn.");
-                                    System.out.println("Cards add up to each other.");
-                                    gameWindow.closeTheWindow("");
-                                }
-
-                                if (answer == 11) {
-                                    gameWindow.closeTheWindow("");
-                                    System.out.println(answerCard);
-                                    System.out.println("This card is a functional card.");
-                                    System.out.println("If you put this card you could demand any value of a non-functional card.");
-                                    System.out.println("Each player (including you) have to put demanded value.");
-                                    gameWindow.closeTheWindow("");
-                                }
-
-                                if (answer == 13) {
-                                    gameWindow.closeTheWindow("");
-                                    String answerCard1 = "| " + answer + " ♣/♦ |";
-                                    System.out.println(answerCard1);
-                                    System.out.println("This card is a non-functional card.");
-                                    System.out.println("");
-                                    String answerCard2 = "| " + answer + " ♥/♠ |";
-                                    System.out.println(answerCard2);
-                                    System.out.println("This card is a functional card.");
-                                    System.out.println("If you put King ♥, it will add 5 cards to the next player.");
-                                    System.out.println("If you put King ♠, it will add 5 cards to the previous player.");
-                                    System.out.println("Cards add up to each other. You could also put 2/3 cards to defend yourself.");
-                                    gameWindow.closeTheWindow("");
-                                }
-
-                                if (answer == 14) {
-                                    gameWindow.closeTheWindow("");
-                                    System.out.println(answerCard);
-                                    System.out.println("This card is a functional card.");
-                                    System.out.println("If you put this card you could demand new color.");
-                                    System.out.println("Next player has to put his card in demanded color.");
-                                    gameWindow.closeTheWindow("");
-                                }
-
-                                gameWindow.playerDecisionWindow();
-
-                                gameWindow.playerDecisionWindow();
-                                ;
-                            }
-
-                            if (action == 5) {
-                                for (int i = 0; i < playersNum; i++) {
-                                    System.out.println("Player " + (i + 1) + " have " + players[i].hand.getCardsInDeck() + " cards.");
-                                }
-
-                                gameWindow.playerDecisionWindow();
-                            }
-
-
-                            if (action == 6) {
-                                gameWindow.cardUI(gameCard);
-                                gameWindow.playerDecisionWindow();
-                            }
-
-                            if (correctDecision == true) {
-
-                                currentPlayer++;
-
                             }
                         }
-                    }
 
-                
+                        if (action == 2) {
+                            players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
+                            // print to the player added card
+                            gameWindow.parseTextToOneLineWindowText("Added card: ");
+                            gameWindow.closeTheWindow("");
+
+                            correctDecision = true;
+                        }
+
+                        if (action == 3) {
+                            players[currentPlayer].showHand();
+                            gameWindow.playerDecisionWindow();
+                        }
+
+                        if (action == 4) {
+                            gameWindow.parseTextToOneLineWindowText("which card do you want to check?");
+                            System.out.println("|      Choose card number form 2-14                                  |");
+                            gameWindow.closeTheWindow("");
+
+                            int answer = input.nextInt();
+                            String answerCard = "| " + answer + " ♠/♣/♥/♦ |";
+
+                            if (!(answer >= 2 && answer <= 14)) {
+                                gameWindow.closeTheWindow("");
+                                System.out.println("Wrong input! Choose card number from 2-14 and enter again:");
+                                gameWindow.closeTheWindow("");
+                                answer = input.nextInt();
+                            }
+
+                            if (answer <= 10 && answer > 4 || answer == 12) {
+                                gameWindow.closeTheWindow("");
+                                System.out.println(answerCard);
+                                System.out.println("This card is a non-functional card.");
+                                gameWindow.closeTheWindow("");
+                            }
+
+                            if (answer == 2 || answer == 3) {
+                                gameWindow.closeTheWindow("");
+                                System.out.println(answerCard);
+                                System.out.println("This card is a functional card.");
+                                System.out.println("If you put this card, it will add " + answer + " extra cards to the next player.");
+                                System.out.println("Cards add up to each other and could be used on another attacking card.");
+                                gameWindow.closeTheWindow("");
+                            }
+
+                            if (answer == 4) {
+                                gameWindow.closeTheWindow("");
+                                System.out.println(answerCard);
+                                System.out.println("This card is a functional card.");
+                                System.out.println("If you put this card, it will force the next player to skip their next turn.");
+                                System.out.println("Cards add up to each other.");
+                                gameWindow.closeTheWindow("");
+                            }
+
+                            if (answer == 11) {
+                                gameWindow.closeTheWindow("");
+                                System.out.println(answerCard);
+                                System.out.println("This card is a functional card.");
+                                System.out.println("If you put this card you could demand any value of a non-functional card.");
+                                System.out.println("Each player (including you) have to put demanded value.");
+                                gameWindow.closeTheWindow("");
+                            }
+
+                            if (answer == 13) {
+                                gameWindow.closeTheWindow("");
+                                String answerCard1 = "| " + answer + " ♣/♦ |";
+                                System.out.println(answerCard1);
+                                System.out.println("This card is a non-functional card.");
+                                System.out.println("");
+                                String answerCard2 = "| " + answer + " ♥/♠ |";
+                                System.out.println(answerCard2);
+                                System.out.println("This card is a functional card.");
+                                System.out.println("If you put King ♥, it will add 5 cards to the next player.");
+                                System.out.println("If you put King ♠, it will add 5 cards to the previous player.");
+                                System.out.println("Cards add up to each other. You could also put 2/3 cards to defend yourself.");
+                                gameWindow.closeTheWindow("");
+                            }
+
+                            if (answer == 14) {
+                                gameWindow.closeTheWindow("");
+                                System.out.println(answerCard);
+                                System.out.println("This card is a functional card.");
+                                System.out.println("If you put this card you could demand new color.");
+                                System.out.println("Next player has to put his card in demanded color.");
+                                gameWindow.closeTheWindow("");
+                            }
+
+                            gameWindow.playerDecisionWindow();
+
+                            gameWindow.playerDecisionWindow();
+                            ;
+                        }
+
+                        if (action == 5) {
+                            for (int i = 0; i < playersNum; i++) {
+                                System.out.println("Player " + (i + 1) + " have " + players[i].hand.getCardsInDeck() + " cards.");
+                            }
+
+                            gameWindow.playerDecisionWindow();
+                        }
+
+
+                        if (action == 6) {
+                            gameWindow.cardUI(gameCard);
+                            gameWindow.playerDecisionWindow();
+                        }
+
+                        if (correctDecision == true) {
+
+                            currentPlayer++;
+
+                        }
+                    }
+                }
+
+
             }
 
 
