@@ -55,9 +55,9 @@ public class Deck {
         }
     }
 
-    public void addCardToHand(Card card) {
-        this.cards[this.cardsInDeck] = card;
-        this.cardsInDeck++;
+    public void addCardToHand(Card card, Deck hand) {
+        hand.cards[hand.getCardsInDeck()] = card;
+        hand.cardsInDeck++;
     }
 
     public void fillHandByCards(Deck playersDeck, MainStack mainStack, int howManyCards){

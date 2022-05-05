@@ -175,15 +175,16 @@ public class Runner {
                         gameWindow.closeTheWindow("");
                         gameWindow.showHandInConsole(players[currentPlayer].hand);
 
-                        int cardToPut = input.nextInt();
+                        int indexOfCardToPut = input.nextInt();
 
-                        while (cardToPut > players[currentPlayer].hand.getCardsInDeck()) {
-                            gameWindow.parseTextToLineConsoleText("Wrong input. Try again");
-                            cardToPut = input.nextInt();
+                        while (indexOfCardToPut > players[currentPlayer].hand.getCardsInDeck()) {
+                            gameWindow.parseTextToLineConsoleText("Wrong index. Try again");
+                            indexOfCardToPut = input.nextInt();
                         }
 
+                        Card cardToPut = new Card(0, 'z', false);
                         Card card = new Card(0, 'z', false);
-                        card = players[currentPlayer].hand.putCardFromHand(players[currentPlayer].hand, cardToPut - 1);
+                        cardToPut = players[currentPlayer].hand.putCardFromHand(players[currentPlayer].hand, indexOfCardToPut - 1);
 
                         if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer + 1])) {
                             System.out.println("You put " + card.introduceYourself() + " on game stack");
@@ -226,18 +227,20 @@ public class Runner {
                                 }
 
                                 correctDecision = true;
-                            } else {
-
-                                System.out.println("This card can't be put on game stack");
-                                gameWindow.playerDecisionWindow();
-
                             }
 
+
+                        } else {
+
+                            System.out.println("This card can't be put on game stack");
+                            players[currentPlayer].hand.addCardToHand(cardToPut, players[currentPlayer].hand);
+                            System.out.println(cardToPut.introduceYourself());
+                            gameWindow.playerDecisionWindow();
                         }
                     }
 
                     if (action == 2) {
-                        players[currentPlayer].addCardToHand(mainStack);
+                        players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
                         // print to the player added card
                         gameWindow.parseTextToOneLineWindowText("Added card: ");
                         gameWindow.closeTheWindow("");

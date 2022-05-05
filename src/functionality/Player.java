@@ -63,10 +63,10 @@ public class Player {
     }
 
 
-    public void addCardToHand(MainStack mainStack) {
+    public void addCardToHand(MainStack mainStack, Deck hand) {
         Card card = new Card(0,'z',false);
         card = mainStack.stack.addCardFromMainStackTop(mainStack);
-        hand.addCardToHand(card);
+        hand.addCardToHand(card, hand);
 
 
     }
