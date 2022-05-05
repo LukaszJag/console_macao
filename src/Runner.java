@@ -306,11 +306,17 @@ public class Runner {
                                 indexOfCardToPut = input.nextInt();
                             }
 
-                            Card cardToPut = new Card(0, 'z', false);
+                            boolean isCardRight = false;
                             Card card = new Card(0, 'z', false);
-                            cardToPut = players[currentPlayer].hand.putCardFromHand(players[currentPlayer].hand, indexOfCardToPut - 1);
+
+                            card = players[currentPlayer].hand.cards[indexOfCardToPut - 1];
 
                             if (players[currentPlayer].putCardOnStack(card, gameCard, players[currentPlayer])) {
+                                isCardRight = true;
+                                players[currentPlayer].giveAwayCard(indexOfCardToPut -1, players[currentPlayer]);
+                            }
+
+                            if (isCardRight) {
                                 System.out.println("You put " + card.introduceYourself() + " on game stack");
 
                                 gameCard = card;
@@ -350,16 +356,9 @@ public class Runner {
 
                                     }
 
-                                    correctDecision = true;
+
                                 }
-
-
-                            } else {
-
-                                System.out.println("This card can't be put on game stack");
-                                players[currentPlayer].hand.addCardToHand(cardToPut, players[currentPlayer].hand);
-                                System.out.println(cardToPut.introduceYourself());
-
+                                correctDecision = true;
                             }
                         }
 
