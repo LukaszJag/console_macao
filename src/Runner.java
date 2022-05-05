@@ -18,8 +18,8 @@ public class Runner {
 
         playersNum = input.nextInt();
 
-        // do a loop? doesn't work for more than 1 false input
-        if (playersNum < 2 || playersNum > 4) {
+
+        while (playersNum < 2 || playersNum > 4) {
             gameWindow.parseTextToOneLineWindowText("Wrong input (min 2 - max 4). Enter again:");
             gameWindow.closeTheWindow("");
             playersNum = input.nextInt();
