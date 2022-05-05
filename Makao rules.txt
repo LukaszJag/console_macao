@@ -1,0 +1,42 @@
+MAKAO
+
+Number of players: 2-4
+Gameplay time: ~ 30 minutes
+Need: one deck of cards (52)
+
+General rules:
+
+Each player gets 5 random cards from main deck. Cards on hand are secret and other players cannot see them until player decide to play card in their turn.
+
+One random (non-functional*) card has to be placed in a way that is visible to all players.
+
+Each player, starting from the first and going clockwise, has to compare cards on their hand to the card on the table. If player has card that corresponds with color or value, he can (but doesn't have to) play this card. If played card is **functional, player has to put defending card or act accordingly to the card's function.
+
+If player doesn't have any corresponding card, he has to take one card from main deck. If drawn card corresponds with the card on the table, player can (but doesn't have to) play this card right away. This rule doesn't work with action card value 4.
+
+If player has more than one card in the same value, they can place them all, but first card has to correspond with the card on the table. This rule does't work with cards in the same color but different values.
+
+The first player who gets to get rid of all his cards, wins.
+
+Functional and non-functional cards:
+
+*non-functional cards - cards with value: 5-10, Queen and King (♣/♦) don't have any extra actions and don't affect other players.
+
+**functional cards - cards with value: 2-4, Jack, King (♠/♥) and Ace have extra actions and affect other players in different ways depending on card's value (and color in case of Kings).
+
+Cards with value: 2/3
+If you put this card, it will add number 2/3 extra cards to the next player. Cards add up to each other and could be used on another attacking card.
+
+Cards with value: 4
+If you put this card, it will force the next player to skip their next turn. Cards add up to each other.
+
+Cards with value: Jack (11)
+If you put this card you could demand any value of a non-functional card. Each player (including you) has to put demanded value. Another Jack could be put if no other player put demanded card. Jack's action lasts for one round.
+
+Cards with value: King (13)
+If you put King ♥, it will add 5 cards to the next player.
+If you put King ♠, it will add 5 cards to the previous player.
+Cards add up to each other. You could also put 2/3 valued cards to defend yourself.
+
+Cards with value: Ace (14)
+If you put this card you could demand new color. Next player has to put his card in demanded color.

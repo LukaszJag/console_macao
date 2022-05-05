@@ -359,7 +359,7 @@ public class Runner {
                                 System.out.println("This card can't be put on game stack");
                                 players[currentPlayer].hand.addCardToHand(cardToPut, players[currentPlayer].hand);
                                 System.out.println(cardToPut.introduceYourself());
-                                gameWindow.playerDecisionWindow();
+
                             }
                         }
 
