@@ -359,6 +359,8 @@ public class Runner {
 
                                 }
                                 correctDecision = true;
+                            }else {
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Wrong card", "Chose your actio again"});
                             }
                         }
 
@@ -465,8 +467,7 @@ public class Runner {
 
 
                         if (action == 6) {
-                            gameWindow.cardUI(gameCard);
-                            gameWindow.playerDecisionWindow();
+                            System.out.println(gameWindow.cardUI(gameCard));
                         }
 
                         if (correctDecision == true) {
