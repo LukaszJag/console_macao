@@ -186,6 +186,7 @@ public class Runner {
                             witchPlayerIsWaiting = currentPlayer;
                             gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer is waiting" + howManyCycleOfWaiting + "turns"});
                             howManyCycleOfWaiting--;
+                            currentPlayer++;
                         } else if (computerCard.getValue() != 0 && typeOfAction == 2) {
 
                             for (int i = 0; i < volumeOfAction; i++) {
@@ -194,13 +195,15 @@ public class Runner {
 
                             volumeOfAction = 0;
                             typeOfAction = 0;
-
+                            currentPlayer++;
                         } else if (computerCard.getValue() != 0 && typeOfAction == 3) {
                             gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card from stack"});
                             players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
+                            currentPlayer++;
                         } else if (computerCard.getValue() != 0 && typeOfAction == 4) {
                             gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card from stack"});
                             players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
+                            currentPlayer++;
                         }
                     }
                 } else {
