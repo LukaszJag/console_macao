@@ -146,6 +146,7 @@ public class Runner {
                         if (computerCard.getValue() == 0 && typeOfAction == 0) {
 
                             gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card"});
+                            currentPlayer++;
 
                         } else if (computerCard.getValue() != 0 && typeOfAction == 0) {
 
@@ -179,6 +180,7 @@ public class Runner {
                             } else {
                                 gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer put a no action card on game stack"});
                             }
+                            currentPlayer++;
 
                         } else if (computerCard.getValue() != 0 && typeOfAction == 1) {
                             witchPlayerIsWaiting = currentPlayer;
@@ -259,7 +261,11 @@ public class Runner {
                                     gameWindow.parseTextToLineConsoleText("Good move. You don't draw any card.");
                                     gameCard = players[currentPlayer].hand.cards[chosenOption];
                                     players[currentPlayer].giveAwayCard(chosenOption, players[currentPlayer]);
-                                    volumeOfAction = volumeOfAction + players[currentPlayer].hand.cards[chosenOption].getValue();
+                                    if (players[currentPlayer].hand.cards[chosenOption].getValue() == 13){
+                                        volumeOfAction = volumeOfAction + 5;
+                                    }else{
+                                        volumeOfAction = volumeOfAction + players[currentPlayer].hand.cards[chosenOption].getValue();
+                                    }
 
                                     currentPlayer++;
                                     correctDecision = true;
@@ -397,9 +403,9 @@ public class Runner {
                                             typeOfAction = 2;
 
                                             if (gameCard.value == 13) {
-                                                volumeOfAction = 5;
+                                                volumeOfAction = volumeOfAction + 5;
                                             } else {
-                                                volumeOfAction = gameCard.getValue();
+                                                volumeOfAction = volumeOfAction + gameCard.getValue();
                                             }
 
                                         }
