@@ -24,8 +24,7 @@ public class Runner {
             gameWindow.closeTheWindow("");
             playersNum = input.nextInt();
         }
-
-        if (playersNum < 2 || playersNum > 4) {
+        while (!(playersNum >= 2 && playersNum <= 4)) {
             gameWindow.parseTextToOneLineWindowText("Wrong input (min 2 - max 4). Enter again:");
 
             playersNum = input.nextInt();
@@ -37,14 +36,9 @@ public class Runner {
 
         humans = input.nextInt();
 
-        if (!(humans >= 1 && humans <= 4) || humans == 0) {
+        while (!(humans >= 1 && humans <= 4 && humans <= playersNum) || humans == 0) {
             gameWindow.parseTextToOneLineWindowText("Wrong input (min 1 - max 4). Enter again:");
             gameWindow.closeTheWindow("");
-            humans = input.nextInt();
-        }
-        if (!(playersNum >= 2 && playersNum <= 4)) {
-            gameWindow.parseTextToOneLineWindowText("Wrong input (min 2 - max 4). Enter again:");
-
             humans = input.nextInt();
         }
 
@@ -72,23 +66,23 @@ public class Runner {
         gameWindow.parseTextToOneLineWindowText("Gameplay");
 
 
-        String[] playertable = new String[playersNum];
-        playertable[0] = "Chosen number of players:" + playersNum;
+        String[] playerTable = new String[playersNum];
+        playerTable[0] = "Chosen number of players:" + playersNum;
         int counterForPlayers = 1;
         for (int i = 0; i < playersNum; i++) {
 
 
             if (players[i].isComputer) {
-                playertable[i] = "Player " + counterForPlayers + ": " + " Computer";
+                playerTable[i] = "Player " + counterForPlayers + ": " + " Computer";
                 counterForPlayers++;
 
             } else {
-                playertable[i] = "Player " + counterForPlayers + ": " + " Human";
+                playerTable[i] = "Player " + counterForPlayers + ": " + " Human";
                 counterForPlayers++;
             }
 
         }
-        gameWindow.parseTextToManyLineWidnowText(playertable);
+        gameWindow.parseTextToManyLineWidnowText(playerTable);
 
 
         MainStack mainStack = new MainStack();
@@ -477,18 +471,18 @@ public class Runner {
             }
         }
 
-            gameWindow.parseTextToOneLineWindowText("Player " + currentPlayer + " is a winner");
-            gameWindow.parseTextToOneLineWindowText("Do you like macao console ?(y/n)");
-            anwser = input.next().charAt(0);
+        gameWindow.parseTextToOneLineWindowText("Player " + currentPlayer + " is a winner");
+        gameWindow.parseTextToOneLineWindowText("Do you like macao console ?(y/n)");
+        anwser = input.next().charAt(0);
 
-            if (anwser == 'y') {
-                gameWindow.parseTextToOneLineWindowText("Glad to hear that!");
-            } else {
-                String whyNo;
-                gameWindow.parseTextToOneLineWindowText("Please, tell us why not?");
-                whyNo = input.next();
-                gameWindow.parseTextToOneLineWindowText("Thank you for your opinion!");
-            }
+        if (anwser == 'y') {
+            gameWindow.parseTextToOneLineWindowText("Glad to hear that!");
+        } else {
+            String whyNo;
+            gameWindow.parseTextToOneLineWindowText("Please, tell us why not?");
+            whyNo = input.next();
+            gameWindow.parseTextToOneLineWindowText("Thank you for your opinion!");
+        }
 
     }
 }
