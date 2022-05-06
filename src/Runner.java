@@ -384,7 +384,6 @@ public class Runner {
                             gameWindow.closeTheWindow("");
 
                             int answer = input.nextInt();
-                            String answerCard = "| " + answer + " ♠/♣/♥/♦ |";
 
                             if (!(answer >= 2 && answer <= 14)) {
                                 gameWindow.closeTheWindow("");
@@ -395,14 +394,14 @@ public class Runner {
 
                             if (answer <= 10 && answer > 4 || answer == 12) {
                                 gameWindow.closeTheWindow("");
-                                System.out.println(answerCard);
+                                System.out.println("| " + answer + " ♠/♣/♥/♦ |");
                                 System.out.println("This card is a non-functional card.");
                                 gameWindow.closeTheWindow("");
                             }
 
                             if (answer == 2 || answer == 3) {
                                 gameWindow.closeTheWindow("");
-                                System.out.println(answerCard);
+                                System.out.println("| " + answer + " ♠/♣/♥/♦ |");
                                 System.out.println("This card is a functional card.");
                                 System.out.println("If you put this card, it will add " + answer + " extra cards to the next player.");
                                 System.out.println("Cards add up to each other and could be used on another attacking card.");
@@ -411,7 +410,7 @@ public class Runner {
 
                             if (answer == 4) {
                                 gameWindow.closeTheWindow("");
-                                System.out.println(answerCard);
+                                System.out.println("| " + answer + " ♠/♣/♥/♦ |");
                                 System.out.println("This card is a functional card.");
                                 System.out.println("If you put this card, it will force the next player to skip their next turn.");
                                 System.out.println("Cards add up to each other.");
@@ -420,7 +419,7 @@ public class Runner {
 
                             if (answer == 11) {
                                 gameWindow.closeTheWindow("");
-                                System.out.println(answerCard);
+                                System.out.println("| " + answer + " ♠/♣/♥/♦ |");
                                 System.out.println("This card is a functional card.");
                                 System.out.println("If you put this card you could demand any value of a non-functional card.");
                                 System.out.println("Each player (including you) have to put demanded value.");
@@ -444,7 +443,7 @@ public class Runner {
 
                             if (answer == 14) {
                                 gameWindow.closeTheWindow("");
-                                System.out.println(answerCard);
+                                System.out.println("| " + answer + " ♠/♣/♥/♦ |");
                                 System.out.println("This card is a functional card.");
                                 System.out.println("If you put this card you could demand new color.");
                                 System.out.println("Next player has to put his card in demanded color.");
