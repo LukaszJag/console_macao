@@ -106,6 +106,7 @@ public class Runner {
             players[i].hand.fillHandByCards(players[i].hand, mainStack, 5);
 
         }
+        boolean sillyComputers;
 
         int action = 0;
         int chosenOption = 0;
@@ -127,6 +128,7 @@ public class Runner {
         Computer computer = new Computer();
         char anwser = 'z';
 
+
         // Game Loop
         while (!isThereALooser) {
 
@@ -136,7 +138,7 @@ public class Runner {
             while (currentPlayer < playersNum) {
 
                 if (witchPlayerIsWaiting == currentPlayer) {
-                    gameWindow.parseTextToManyLineWidnowText(new String[]{"Player " + currentPlayer + " wait" });
+                    gameWindow.parseTextToManyLineWidnowText(new String[]{"Player " + currentPlayer + " wait"});
                     howManyCycleOfWaiting--;
 
                     if (howManyCycleOfWaiting <= 0) {
@@ -148,70 +150,126 @@ public class Runner {
 
                     if (players[currentPlayer].isComputer == true) {
 
-                        computerCard = computer.actionOfComputer(players[currentPlayer], gameCard, typeOfAction);
-                        if (computerCard.getValue() == 0 && typeOfAction == 0) {
-
-                            gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card"});
-                            currentPlayer++;
-
-                        } else if (computerCard.getValue() != 0 && typeOfAction == 0) {
+                        if (isActionCardActive) {
 
 
-                            if (gameCard.isActionCard) {
 
-                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer put a action card on game stack"});
+                            if (typeOfAction == 1) {
+                                witchPlayerIsWaiting = currentPlayer;
 
-                                if (computerCard.getValue() == 4) {
-                                    typeOfAction = 1;
-                                    volumeOfAction = 1;
-                                    computerCard = blankCard;
-                                } else if ((computerCard.getValue() == 2 || computerCard.getValue() == 3 || computerCard.getValue() == 13) &&
-                                        (computerCard.getValue() == 2 || computerCard.getValue() == 3 || computerCard.getValue() == 13)) {
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer is waiting " + volumeOfAction + " turns"});
 
-                                    typeOfAction = 2;
-                                    if (computerCard.getValue() == 13) {
-                                        volumeOfAction = 5;
-                                    } else {
-                                        volumeOfAction = computerCard.getValue();
-                                    }
-                                    computerCard = blankCard;
-                                } else if (computerCard.getValue() == 14) {
-                                    demandColor = 'h';
-                                    cycleOfDemandColor = 0;
-                                } else if (computerCard.getValue() == 11) {
-                                    cycleOfDemandValue = 0;
-                                    demandValue = 7;
+                                volumeOfAction = 0;
+                                isActionCardActive = false;
+                                typeOfAction = 0;
+                            }
+
+                            if (typeOfAction == 2) {
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw " + volumeOfAction + " cards"});
+
+                                for (int i = 0; i < volumeOfAction; i++) {
+                                    players[currentPlayer].hand.addCardFromMainStackTop(mainStack);
                                 }
 
-                            } else {
-                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer put a no action card on game stack"});
+                                volumeOfAction = 0;
+                                isActionCardActive = false;
+                                typeOfAction = 0;
+                            }
+
+                            if (typeOfAction == 3) {
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card"});
+                                players[currentPlayer].hand.addCardFromMainStackTop(mainStack);
+
+                                volumeOfAction = 0;
+                                isActionCardActive = false;
+                                typeOfAction = 0;
+                            }
+
+                            if (typeOfAction == 4) {
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card"});
+                                players[currentPlayer].hand.addCardFromMainStackTop(mainStack);
+                                
+                                volumeOfAction = 0;
+                                isActionCardActive = false;
+                                typeOfAction = 0;
                             }
                             currentPlayer++;
+                        } else {
 
-                        } else if (computerCard.getValue() != 0 && typeOfAction == 1) {
-                            witchPlayerIsWaiting = currentPlayer;
-                            gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer is waiting" + howManyCycleOfWaiting + "turns"});
-                            howManyCycleOfWaiting--;
-                            currentPlayer++;
-                        } else if (computerCard.getValue() != 0 && typeOfAction == 2) {
+                            computerCard = computer.actionOfComputer(players[currentPlayer], gameCard, typeOfAction);
+                            if (computerCard.getValue() == 0 && typeOfAction == 0) {
 
-                            for (int i = 0; i < volumeOfAction; i++) {
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card"});
+                                ;
+
+                            } else if (computerCard.getValue() != 0 && typeOfAction == 0) {
+
+
+                                if (gameCard.isActionCard) {
+
+                                    gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer put a action card on game stack"});
+
+                                    if (computerCard.getValue() == 4) {
+                                        typeOfAction = 1;
+                                        volumeOfAction = 1;
+                                        computerCard = blankCard;
+                                    } else if ((computerCard.getValue() == 2 || computerCard.getValue() == 3 || computerCard.getValue() == 13) &&
+                                            (computerCard.getValue() == 2 || computerCard.getValue() == 3 || computerCard.getValue() == 13)) {
+
+                                        typeOfAction = 2;
+                                        if (computerCard.getValue() == 13) {
+                                            volumeOfAction = 5;
+                                        } else {
+                                            volumeOfAction = computerCard.getValue();
+                                        }
+                                        computerCard = blankCard;
+                                    } else if (computerCard.getValue() == 14) {
+                                        demandColor = 'h';
+                                        cycleOfDemandColor = 0;
+                                    } else if (computerCard.getValue() == 11) {
+                                        cycleOfDemandValue = 0;
+                                        demandValue = 7;
+                                    }
+
+                                } else {
+                                    gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer put a no action card on game stack"});
+                                }
+
+
+                            } else if (computerCard.getValue() != 0 && typeOfAction == 1) {
+
+                                witchPlayerIsWaiting = currentPlayer;
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer is waiting" + howManyCycleOfWaiting + "turns"});
+                                howManyCycleOfWaiting--;
+
+
+                            } else if (computerCard.getValue() != 0 && typeOfAction == 2) {
+
+                                for (int i = 0; i < volumeOfAction; i++) {
+                                    players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
+                                }
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw " + volumeOfAction + "card/s"});
+                                volumeOfAction = 0;
+                                typeOfAction = 0;
+
+
+                            } else if (computerCard.getValue() != 0 && typeOfAction == 3) {
+
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card from stack"});
                                 players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
-                            }
 
-                            volumeOfAction = 0;
-                            typeOfAction = 0;
-                            currentPlayer++;
-                        } else if (computerCard.getValue() != 0 && typeOfAction == 3) {
-                            gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card from stack"});
-                            players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
-                            currentPlayer++;
-                        } else if (computerCard.getValue() != 0 && typeOfAction == 4) {
-                            gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card from stack"});
-                            players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
-                            currentPlayer++;
+
+                            } else if (computerCard.getValue() != 0 && typeOfAction == 4) {
+
+                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card from stack"});
+                                players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
+
+                            }
                         }
+                        currentPlayer++;
+
                     } else {
+
                         gameWindow.parseTextToOneLineWindowText("Player " + (currentPlayer + 1) + " Turn:");
 
                         boolean correctDecision = false;
@@ -411,7 +469,7 @@ public class Runner {
                                                 if (gameCard.value == 13) {
                                                     volumeOfAction = volumeOfAction + 5;
                                                 } else {
-                                                    volumeOfAction = volumeOfAction + gameCard.getValue();
+                                                    volumeOfAction = volumeOfAction + gameCard.value;
                                                 }
 
                                             }
@@ -439,7 +497,7 @@ public class Runner {
                                 if (action == 2) {
                                     players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
 
-                                    gameWindow.parseTextToManyLineWidnowText(new String[]{"Card have been added"});
+                                    gameWindow.parseTextToManyLineWidnowText(new String[]{"Card have been added to hand"});
 
 
                                     correctDecision = true;

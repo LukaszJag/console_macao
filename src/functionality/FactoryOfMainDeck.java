@@ -36,7 +36,7 @@ public class FactoryOfMainDeck {
 
                 } else {
 
-                    if(j == 11 && (i == 1 || i ==3)){
+                    if(j == 13 && (i == 1 || i ==3)){
                         Card card = new Card(j, color, false);
                         this.deck.cards[indexInDeck] = card;
                         indexInDeck++;
