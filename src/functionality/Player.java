@@ -45,12 +45,15 @@ public class Player {
             // jh = 5d 4h/ js
             if (cardOnStack.getColor() == card.getColor()) {
 
-                return true;
+                if (!cardOnStack.getIsAction()){
+                    return true;
+                }
 
-                if((cardOnStack.getValue() == 2 || cardOnStack.getValue() == 3 || cardOnStack.getValue() == 13) &&
+                if ((cardOnStack.getValue() == 2 || cardOnStack.getValue() == 3 || cardOnStack.getValue() == 13) &&
                         (card.getValue() == 2 || card.getValue() == 3 || card.getValue() == 13)) {
                     return true;
                 }
+
             } else if (cardOnStack.getValue() == card.getValue()) {
                 return true;
 
@@ -64,10 +67,10 @@ public class Player {
         return false;
     }
 
-    public void giveAwayCard(int indexOfCard, Player player){
+    public void giveAwayCard(int indexOfCard, Player player) {
         Card tmpCard = new Card(0, 'z', false);
         player.hand.cards[indexOfCard] = tmpCard;
-        tmpCard = player.hand.cards[player.hand.getCardsInDeck() -1];
+        tmpCard = player.hand.cards[player.hand.getCardsInDeck() - 1];
         player.hand.cards[indexOfCard] = tmpCard;
         player.hand.cards[indexOfCard] = tmpCard;
         player.hand.cardsInDeck--;
@@ -75,7 +78,7 @@ public class Player {
     }
 
     public void addCardToHand(MainStack mainStack, Deck hand) {
-        Card card = new Card(0,'z',false);
+        Card card = new Card(0, 'z', false);
         card = mainStack.stack.addCardFromMainStackTop(mainStack);
         hand.addCardToHand(card, hand);
 
