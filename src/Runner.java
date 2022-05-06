@@ -149,7 +149,7 @@ public class Runner {
 
                     if (typeOfAction == 1) {
 
-                        gameWindow.parseTextToManyLineWidnowText(new String[]{"You must wait " + volumeOfAction + " turn/s.", "Unless you put card with value 4"});
+                        gameWindow.parseTextToManyLineWidnowText(new String[]{"You have to wait " + volumeOfAction + " turn/s.", "Unless you put card with value 4"});
 
                         gameWindow.parseTextToManyLineWidnowText(new String[]{"Do you want to put card? [y/n]"});
                         anwser = input.next().charAt(0);
@@ -178,7 +178,7 @@ public class Runner {
                     }
 
                     if (typeOfAction == 2) {
-                        gameWindow.parseTextToManyLineWidnowText(new String[]{"You must draw " + volumeOfAction + " card/s.",
+                        gameWindow.parseTextToManyLineWidnowText(new String[]{"You have to draw " + volumeOfAction + " card/s.",
                                 "Unless you put card with value", "2, 3 , King s, King h"});
 
                         gameWindow.parseTextToManyLineWidnowText(new String[]{"Do you want to put card? [y/n]"});
@@ -194,7 +194,7 @@ public class Runner {
                                             players[currentPlayer].hand.cards[chosenOption].getColor() == 'h'))) {
 
 
-                                gameWindow.parseTextToLineConsoleText("Good move. You don't draw card/s.");
+                                gameWindow.parseTextToLineConsoleText("Good move. You don't draw any card.");
                                 gameCard = players[currentPlayer].hand.cards[chosenOption];
                                 players[currentPlayer].giveAwayCard(chosenOption, players[currentPlayer]);
                                 volumeOfAction = volumeOfAction + players[currentPlayer].hand.cards[chosenOption].getValue();
@@ -218,7 +218,7 @@ public class Runner {
 
                     if (typeOfAction == 3) {
                         gameWindow.parseTextToManyLineWidnowText(new String[]{"Demand color is ", "" + demandColor,
-                                "You must put card with " + demandColor + " color.", "or you will draw a card"});
+                                "You have to put card with " + demandColor + " color.", "or you will draw a card"});
 
                         gameWindow.parseTextToManyLineWidnowText(new String[]{"Do you want to put card? [y/n]"});
                         anwser = input.next().charAt(0);
@@ -366,7 +366,7 @@ public class Runner {
 
                         if (action == 2) {
                             players[currentPlayer].addCardToHand(mainStack, players[currentPlayer].hand);
-                            // print to the player added card
+
                             gameWindow.parseTextToManyLineWidnowText(new String[]{"Card have been added"});
 
 
