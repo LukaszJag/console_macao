@@ -45,7 +45,9 @@ public class Player {
             // jh = 5d 4h/ js
             if (cardOnStack.getColor() == card.getColor()) {
 
-                if ((cardOnStack.getValue() == 2 || cardOnStack.getValue() == 3 || cardOnStack.getValue() == 13) &&
+                return true;
+
+                if((cardOnStack.getValue() == 2 || cardOnStack.getValue() == 3 || cardOnStack.getValue() == 13) &&
                         (card.getValue() == 2 || card.getValue() == 3 || card.getValue() == 13)) {
                     return true;
                 }
