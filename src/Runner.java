@@ -44,14 +44,14 @@ public class Runner {
             int counter = 0;
             for (int j = 0; j < humans; j++) {
                 Player hum = new Player(false);
-                players[i] = hum;
+                players[j] = hum;
                 Deck hand = new Deck();
-                players[i].hand = hand;
+                players[j].hand = hand;
                 counter++;
             }
-            for (int j = counter; j < playersNum; j++) {
+            for (int j = 0; j < (playersNum - humans); j++) {
                 Computer com = new Computer(true);
-                players[j] = com;
+                computers[j] = com;
                 Deck hand = new Deck();
                 players[j].hand = hand;
                 counter++;
@@ -62,21 +62,26 @@ public class Runner {
 
 
         String[] playerTable = new String[playersNum];
+
         playerTable[0] = "Chosen number of players:" + playersNum;
         int counterForPlayers = 1;
-        for (int i = 0; i < playersNum; i++) {
+        int counter = 0;
 
+        for (int j = 0; j < humans; j++) {
 
-            if (players[i].isComputer) {
-                playerTable[i] = "Player " + counterForPlayers + ": " + " Computer";
-                counterForPlayers++;
-
-            } else {
-                playerTable[i] = "Player " + counterForPlayers + ": " + " Human";
-                counterForPlayers++;
-            }
+            playerTable[counter] = "Player " + counterForPlayers + ": " + " Human";
+            counterForPlayers++;
+            counter++;
 
         }
+        for (int j = 0; j < (playersNum - humans); j++) {
+            playerTable[counter] = "Player " + counterForPlayers + ": " + " Computer";
+            counter++;
+            counterForPlayers++;
+
+        }
+
+
 
         gameWindow.parseTextToManyLineWidnowText(playerTable);
 
@@ -94,8 +99,12 @@ public class Runner {
         System.out.println((gameWindow.cardUI(gameCard)));
 
         // Fill each players' hand with 5 cards
-        for (int i = 0; i < playersNum; i++) {
+        for (int i = 0; i < humans; i++) {
             players[i].hand.fillHandByCards(players[i].hand, mainStack, 5);
+        }
+
+        for (int i = 0; i < computers.length; i++) {
+            computers[i].hand.fillHandByCards(players[i].hand, mainStack, 5);
         }
 
         boolean isThereALooser = false;
@@ -132,11 +141,11 @@ public class Runner {
 
                     gameWindow.parseTextToOneLineWindowText("Player " + (currenthuman + 1) + " Turn:");
 
-                    if (action.isPlayerAWinner(players[currenthuman])){
+                    if (action.isPlayerAWinner(players[currenthuman])) {
                         isThereALooser = true;
                         winnerIndex = currenthuman;
-                        endOfPlayerTurn =true;
-                        isComputerDone= true;
+                        endOfPlayerTurn = true;
+                        isComputerDone = true;
                     }
 
                     while (!endOfPlayerTurn) {
@@ -168,11 +177,11 @@ public class Runner {
                         turns++;
                     }
 
-                    if (action.isComputerAWinner(computers[currentComputer +currenthuman])){
+                    if (action.isComputerAWinner(computers[currentComputer + currenthuman])) {
                         isThereALooser = true;
                         winnerIndex = currenthuman + currentComputer;
-                        endOfPlayerTurn =true;
-                        isComputerDone= true;
+                        endOfPlayerTurn = true;
+                        isComputerDone = true;
                     }
                     //Computer loop
                     while (currentComputer < (playersNum - humans)) {
@@ -189,9 +198,9 @@ public class Runner {
                                     computers[currentComputer].computeResponseToActionCard(computers[currentComputer], action, mainStack, currentComputer);
                                 } else {
                                     computerCard = computers[currentComputer].computerPutCardOnGameStack(computer, gameCard);
-                                    if (computerCard.getValue() != 0){
+                                    if (computerCard.getValue() != 0) {
                                         gameCard = computerCard;
-                                        computerCard =blankCard;
+                                        computerCard = blankCard;
                                     }
                                 }
                             }
@@ -206,7 +215,7 @@ public class Runner {
 
                 }
             }
-            
+
             gameWindow.parseTextToOneLineWindowText("Player " + winnerIndex + " is a winner");
             gameWindow.parseTextToOneLineWindowText("Do you like macao console ?(y/n)");
             playerAnswer = input.next().charAt(0);
