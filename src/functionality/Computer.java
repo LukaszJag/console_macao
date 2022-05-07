@@ -1,8 +1,13 @@
 package functionality;
 
-public class Computer {
+public class Computer extends Player{
 
-    public Card actionOfComputer(Player computer, Card cardOnStack, int typeOfPreviousAction) {
+    UI gameWindow = new UI();
+    public Computer(boolean isComputer) {
+        super(isComputer);
+    }
+
+    public Card actionOfComputer(Player computer, Card cardOnStack) {
 
         Card card = new Card(0, 'z', false);
         boolean hasComputerAGoodCard = false;
@@ -63,6 +68,74 @@ public class Computer {
         } else {
             return card;
         }
+    }
+
+    public Card computeResponseToActionCard(Computer computer, Action action, MainStack mainStack, int indexOfPlayer){
+        Card card = new Card(0, 'z', false);
+
+        if (action.typeOfAction == 1) {
+            action.witchPlayerIsWaiting = indexOfPlayer;
+
+            gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer is waiting " + action.volumeOfAction + " turns"});
+
+            action.volumeOfAction = 0;
+            action.isActionCardActive = false;
+            action.typeOfAction = 0;
+        }
+
+        if (action.typeOfAction == 2) {
+            gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw " + action.volumeOfAction + " cards"});
+
+            for (int i = 0; i < action.volumeOfAction; i++) {
+                computer.hand.addCardFromMainStackTop(mainStack);
+            }
+
+            action.volumeOfAction = 0;
+            action.isActionCardActive = false;
+            action.typeOfAction = 0;
+        }
+
+        if (action.typeOfAction == 3) {
+            gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card"});
+            computer.hand.addCardFromMainStackTop(mainStack);
+
+            action.volumeOfAction = 0;
+            action.isActionCardActive = false;
+            action.typeOfAction = 0;
+        }
+
+        if (action.typeOfAction == 4) {
+            gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer draw a card"});
+            computer.hand.addCardFromMainStackTop(mainStack);
+
+            action.volumeOfAction = 0;
+            action.isActionCardActive = false;
+            action.typeOfAction = 0;
+        }
+
+        return card;
+    }
+
+    public Card computerPutCardOnGameStack(Computer computer, Card gameCard){
+        Card card = new Card(0, 'z', false);
+
+        int indexOfCard = -1;
+
+        for (int i = 0; i < computer.hand.cardsInDeck; i++) {
+            if(computer.actionOfComputer(computer, computer.hand.cards[i]).getValue() != 0 ){
+                card =  computer.hand.cards[i];
+                indexOfCard = i;
+            }
+        }
+        if(card.getIsAction() == true){
+            card = new Card(0, 'z', false);
+        }
+
+        if (card.getValue() != 0){
+            computer.fireCard(indexOfCard, computer);
+        }
+
+        return  card;
     }
 }
 
