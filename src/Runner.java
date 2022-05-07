@@ -29,7 +29,7 @@ public class Runner {
         gameWindow.closeTheWindow("");
 
         humans = input.nextInt();
-
+        int computerNum = playersNum - humans;
         while (!(humans >= 1 && humans <= 4 && humans <= playersNum) || humans == 0) {
             gameWindow.parseTextToOneLineWindowText("Wrong input (min 1 - max 4). Enter again:");
             gameWindow.closeTheWindow("");
@@ -41,18 +41,18 @@ public class Runner {
 
         // Create players and computers
 
-            for (int j = 0; j < humans; j++) {
-                Player hum = new Player(false);
-                players[j] = hum;
-                Deck hand = new Deck();
-                players[j].hand = hand;
-            }
-            for (int j = 0; j < (playersNum - humans); j++) {
-                Computer com = new Computer(true);
-                computers[j] = com;
-                Deck hand = new Deck();
-                    computers[j].hand = hand;
-            }
+        for (int j = 0; j < humans; j++) {
+            Player hum = new Player(false);
+            players[j] = hum;
+            Deck hand = new Deck();
+            players[j].hand = hand;
+        }
+        for (int j = 0; j < (playersNum - humans); j++) {
+            Computer com = new Computer(true);
+            computers[j] = com;
+            Deck hand = new Deck();
+            computers[j].hand = hand;
+        }
 
         gameWindow.parseTextToOneLineWindowText("Gameplay");
 
@@ -76,7 +76,6 @@ public class Runner {
             counterForPlayers++;
 
         }
-
 
 
         gameWindow.parseTextToManyLineWidnowText(playerTable);
@@ -169,9 +168,11 @@ public class Runner {
                         }
 
                         endOfPlayerTurn = false;
-                        currenthuman++;
-                        turns++;
+
                     }
+
+                    currenthuman++;
+                    turns++;
 
                     if (action.isComputerAWinner(computers[currentComputer + currenthuman])) {
                         isThereALooser = true;
@@ -179,52 +180,54 @@ public class Runner {
                         endOfPlayerTurn = true;
                         isComputerDone = true;
                     }
-                    //Computer loop
-                    while (currentComputer < (playersNum - humans)) {
-
-
-                        while (!isComputerDone) {
-
-                            if (action.isThisPlayerWait(currentComputer + humans, action)) {
-                                gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer " + currentComputer + " is waiting"});
-                                currentComputer++;
-                                isComputerDone = true;
-                            } else {
-                                if (action.isActionCardActive) {
-                                    computers[currentComputer].computeResponseToActionCard(computers[currentComputer], action, mainStack, currentComputer);
-                                } else {
-                                    computerCard = computers[currentComputer].computerPutCardOnGameStack(computer, gameCard);
-                                    if (computerCard.getValue() != 0) {
-                                        gameCard = computerCard;
-                                        computerCard = blankCard;
-                                    }
-                                }
-                            }
-
-                            isComputerDone = false;
-                            currentComputer++;
-                            turns++;
-                        }
-
-                    }
-
 
                 }
+
+                //Computer loop
+                while (currentComputer < computerNum) {
+
+
+                    while (!isComputerDone) {
+
+                        if (action.isThisPlayerWait(currentComputer + humans, action)) {
+                            gameWindow.parseTextToManyLineWidnowText(new String[]{"Computer " + currentComputer + " is waiting"});
+                            currentComputer++;
+                            isComputerDone = true;
+                        } else {
+                            if (action.isActionCardActive) {
+                                computers[currentComputer].computeResponseToActionCard(computers[currentComputer], action, mainStack, currentComputer);
+                            } else {
+                                computerCard = computers[currentComputer].computerPutCardOnGameStack(computer, gameCard);
+                                if (computerCard.getValue() != 0) {
+                                    gameCard = computerCard;
+                                    computerCard = blankCard;
+                                }
+                            }
+                        }
+
+                        isComputerDone = false;
+                        currentComputer++;
+                        turns++;
+                    }
+
+                }
+
+
             }
-
-            gameWindow.parseTextToOneLineWindowText("Player " + winnerIndex + " is a winner");
-            gameWindow.parseTextToOneLineWindowText("Do you like macao console ?(y/n)");
-            playerAnswer = input.next().charAt(0);
-
-            if (playerAnswer == 'y') {
-                gameWindow.parseTextToOneLineWindowText("Glad to hear that!");
-            } else {
-                String whyNo;
-                gameWindow.parseTextToOneLineWindowText("Please, tell us why not?");
-                whyNo = input.next();
-                gameWindow.parseTextToOneLineWindowText("Thank you for your opinion!");
-            }
-
         }
+
+        gameWindow.parseTextToOneLineWindowText("Player " + winnerIndex + " is a winner");
+        gameWindow.parseTextToOneLineWindowText("Do you like macao console ?(y/n)");
+        playerAnswer = input.next().charAt(0);
+
+        if (playerAnswer == 'y') {
+            gameWindow.parseTextToOneLineWindowText("Glad to hear that!");
+        } else {
+            String whyNo;
+            gameWindow.parseTextToOneLineWindowText("Please, tell us why not?");
+            whyNo = input.next();
+            gameWindow.parseTextToOneLineWindowText("Thank you for your opinion!");
+        }
+
     }
 }
