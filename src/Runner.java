@@ -100,7 +100,7 @@ public class Runner {
         }
 
         for (int i = 0; i < computers.length; i++) {
-            computers[i].hand.fillHandByCards(players[i].hand, mainStack, 5);
+            computers[i].hand.fillHandByCards(computers[i].hand, mainStack, 5);
         }
 
         boolean isThereALooser = false;

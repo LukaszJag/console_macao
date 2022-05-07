@@ -65,9 +65,8 @@ public class Deck {
         Card card = new Card(0, 'z',false);
         Card emptyCard = new Card(0, 'z',false);
         int cardsInDeck = mainStack.stack.getCardsInDeck();
-        int cardsInHand = playersDeck.getCardsInDeck();
 
-        for (int i = cardsInHand; i < howManyCards + cardsInHand; i++) {
+        for (int i = 0; i < howManyCards; i++) {
             card = mainStack.stack.cards[cardsInDeck - 1];
             mainStack.stack.cards[cardsInDeck - 1] = emptyCard;
             mainStack.stack.cardsInDeck--;
