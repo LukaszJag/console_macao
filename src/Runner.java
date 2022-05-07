@@ -40,23 +40,19 @@ public class Runner {
         Computer[] computers = new Computer[playersNum - humans];
 
         // Create players and computers
-        for (int i = 0; i < playersNum; i++) {
-            int counter = 0;
+
             for (int j = 0; j < humans; j++) {
                 Player hum = new Player(false);
                 players[j] = hum;
                 Deck hand = new Deck();
                 players[j].hand = hand;
-                counter++;
             }
             for (int j = 0; j < (playersNum - humans); j++) {
                 Computer com = new Computer(true);
                 computers[j] = com;
                 Deck hand = new Deck();
-                players[j].hand = hand;
-                counter++;
+                    computers[j].hand = hand;
             }
-        }
 
         gameWindow.parseTextToOneLineWindowText("Gameplay");
 
