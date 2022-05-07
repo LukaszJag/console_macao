@@ -108,7 +108,7 @@ public class Runner {
         int currenthuman = 0;
         int currentComputer = 0;
         int cycle = 0;
-
+        int winnerIndex = -1;
         Card blankCard = new Card(0, 'z', false);
 
         Card computerCard = new Card(0, 'z', false);
@@ -131,6 +131,14 @@ public class Runner {
 
 
                     gameWindow.parseTextToOneLineWindowText("Player " + (currenthuman + 1) + " Turn:");
+
+                    if (action.isPlayerAWinner(players[currenthuman])){
+                        isThereALooser = true;
+                        winnerIndex = currenthuman;
+                        endOfPlayerTurn =true;
+                        isComputerDone= true;
+                    }
+
                     while (!endOfPlayerTurn) {
                         if (action.isThisPlayerWait(currenthuman, action)) {
                             gameWindow.parseTextToManyLineWidnowText(new String[]{"Player " + currenthuman + " is waiting"});
@@ -160,6 +168,12 @@ public class Runner {
                         turns++;
                     }
 
+                    if (action.isComputerAWinner(computers[currentComputer +currenthuman])){
+                        isThereALooser = true;
+                        winnerIndex = currenthuman + currentComputer;
+                        endOfPlayerTurn =true;
+                        isComputerDone= true;
+                    }
                     //Computer loop
                     while (currentComputer < (playersNum - humans)) {
 
@@ -192,7 +206,8 @@ public class Runner {
 
                 }
             }
-            gameWindow.parseTextToOneLineWindowText("Player " + turns + " is a winner");
+            
+            gameWindow.parseTextToOneLineWindowText("Player " + winnerIndex + " is a winner");
             gameWindow.parseTextToOneLineWindowText("Do you like macao console ?(y/n)");
             playerAnswer = input.next().charAt(0);
 

@@ -107,6 +107,26 @@ public class Action {
         this.cycleOfDemandColor = cycleOfDemandColor;
     }
 
+    public boolean isPlayerAWinner(Player player){
+        boolean isPlayerWin = false;
+
+        if (player.hand.cardsInDeck <= 0){
+            isPlayerWin = true;
+        }
+
+        return  isPlayerWin;
+    }
+
+    public boolean isComputerAWinner(Computer computer){
+        boolean isComputerWin = false;
+
+        if (computer.hand.cardsInDeck <= 0){
+            isComputerWin = true;
+        }
+
+        return  isComputerWin;
+    }
+
     public boolean isThisPlayerWait(int currentPlayerIndex, Action action) {
         if (action.witchPlayerIsWaiting == currentPlayerIndex) {
             action.howManyCycleOfWaiting--;
